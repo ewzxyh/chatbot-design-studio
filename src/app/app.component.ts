@@ -8,7 +8,6 @@ import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
 import { environment } from 'src/environments/environment';
 import { getParameterByName } from 'src/chat21-core/utils/utils';
-import { tranlatedLanguage } from 'src/chat21-core/utils/constants';
 import { ProjectService } from './services/projects.service';
 import { UploadService } from 'src/chat21-core/providers/abstract/upload.service';
 import { UsersService } from './services/users.service';
@@ -152,14 +151,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     const browserLang = this.translate.getBrowserLang();
     this.logger.log('[APP-COMP] browserLang: ', browserLang);
     const stored_preferred_lang = localStorage.getItem(currentUserId + '_lang');
-    this.logger.log('[APP-COMP] stored_preferred_lang: ', stored_preferred_lang);
-
-    let chat_lang = ''
-    if (browserLang && !stored_preferred_lang) {
-      chat_lang = browserLang
-    } else if (browserLang && stored_preferred_lang) {
-      chat_lang = stored_preferred_lang
-    }
+    this.logger.log('[APP-COMP] stored_preferred_lang ignored for ChatCase CDS: ', stored_preferred_lang);
 
     // if (tranlatedLanguage.includes(chat_lang)) {
     //   this.logger.log('[APP-COMP] tranlatedLanguage includes', chat_lang, ': ', tranlatedLanguage.includes(chat_lang))
@@ -172,10 +164,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     //   this.translate.setDefaultLang('en');
     //   this.translate.use('en');
     // }
-    this.lang=chat_lang
+    const chat_lang = 'pt';
+    this.lang = chat_lang;
 
     this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.translate.use(chat_lang);
 
   }
 

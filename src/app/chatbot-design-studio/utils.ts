@@ -6,24 +6,24 @@ export const preDisplayName:string  = 'untitled_block_';
 
 export const DOCS_LINK = {
     ASKGPTV2 : { 
-        namespace_as_name: { link: 'https://gethelp.tiledesk.com/', target: '_blank'},
-        advanced_prompt: { link: 'https://gethelp.tiledesk.com/articles/ask-knowledge-base-and-its-role-in-building-custom-ai-agents/#advanced-context', target: '_blank' }, 
-        citations: { link: 'https://gethelp.tiledesk.com/articles/ask-knowledge-base-and-its-role-in-building-custom-ai-agents/#get-contents-sources', target: '_blank' }
+        namespace_as_name: { link: 'https://chatcase.com.br', target: '_blank'},
+        advanced_prompt: { link: 'https://chatcase.com.br', target: '_blank' },
+        citations: { link: 'https://chatcase.com.br', target: '_blank' }
     }, 
     ADD_TO_KB: {
-        namespace_as_name: { link: 'https://gethelp.tiledesk.com/articles/add-to-knowledge-base-action/', target: '_blank'},
+        namespace_as_name: { link: 'https://chatcase.com.br', target: '_blank'},
     },
     GPT_TASK : {
         json_mode: { link: 'https://platform.openai.com/docs/guides/structured-outputs/json-mode', target: '_blank' }
     },
     FULFILLMENT : {
-        webhook_data_model: { link: 'https://developer.tiledesk.com/resolution-bot-programming/webhook-data-model', target: '_blank' }
+        webhook_data_model: { link: 'https://chatcase.com.br', target: '_blank' }
     },
     BOT_DETAIL: {
-        chatbot_slug: { link: 'https://gethelp.tiledesk.com/articles/enhancing-conversation-flows-with-replace-bot-action/#replace-bot-using-the-chatbot-slug', target: '_blank' }
+        chatbot_slug: { link: 'https://chatcase.com.br', target: '_blank' }
     },
     JSON_BUTTONS: {
-        more_json_uttons: { link: 'https://gethelp.tiledesk.com/articles/reply-action/#json-buttons', target: '_blank'},
+        more_json_uttons: { link: 'https://chatcase.com.br', target: '_blank'},
     },
     VOICE_SETTINGS: {
         'twilio': {
@@ -101,9 +101,9 @@ export enum SETTINGS_SECTION {
 }
 
 export enum EXTERNAL_URL {
-    getchatbotinfo = "https://tiledesk.com/community/getchatbotinfo/chatbotId/",
-    getFulFillMentDoc = 'https://developer.tiledesk.com/resolution-bot-programming/webhook-data-model',
-    getChangelogUrl = 'https://feedback.tiledesk.com/changelog'
+    getchatbotinfo = "https://chatcase.com.br/community/getchatbotinfo/chatbotId/",
+    getFulFillMentDoc = 'https://chatcase.com.br',
+    getChangelogUrl = 'https://chatcase.com.br'
 }
 
 export enum TYPE_INTENT_NAME {
@@ -656,6 +656,10 @@ export function addCssClassToElement(
   logger?: any
 ): void {
   try {
+    if (!componentID || /-(?:undefined|null)$/.test(componentID)) {
+      return;
+    }
+
     if (logger) {
       logger.log("[UTILS] Aggiunta classe CSS:", className, "a elemento:", componentID);
     }
@@ -694,6 +698,10 @@ export function removeCssClassFromElement(
   logger?: any
 ): void {
   try {
+    if (!componentID || /-(?:undefined|null)$/.test(componentID)) {
+      return;
+    }
+
     if (logger) {
       logger.log('[UTILS] Rimozione classe CSS:', className, 'da elemento:', componentID);
     }

@@ -76,12 +76,12 @@ export class NotifyService {
   }
 
   contacUsViaEmail() {
-    window.open('mailto:redacted@example.invalid?subject=Upgrade Tiledesk plan');
+    window.open('mailto:redacted@example.invalid?subject=Upgrade ChatCase plan');
     this.closeContactUsModalToUpgradePlan()
   }
   
   contacUsViaEmailPlanC() {
-    window.open(`mailto:redacted@example.invalid?subject=Upgrade Tiledesk plan (${PLAN_NAME.C} expired)`);
+    window.open(`mailto:redacted@example.invalid?subject=Upgrade ChatCase plan (${PLAN_NAME.C} expired)`);
     this.closeModalEnterpiseSubsExpired()
   }
 

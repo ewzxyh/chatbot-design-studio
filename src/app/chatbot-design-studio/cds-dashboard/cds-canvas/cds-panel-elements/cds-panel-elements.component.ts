@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { TYPE_OF_MENU } from '../../../utils';
-import { TYPE_CHATBOT, ACTIONS_LIST, TYPE_ACTION_CATEGORY, ACTION_CATEGORY } from 'src/app/chatbot-design-studio/utils-actions';
+import { TYPE_CHATBOT, ACTIONS_LIST, TYPE_ACTION_CATEGORY, ACTION_CATEGORY, TYPE_ACTION } from 'src/app/chatbot-design-studio/utils-actions';
 import { ProjectPlanUtils } from 'src/app/utils/project-utils';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
@@ -38,6 +38,13 @@ export class CdsPanelElementsComponent implements OnInit {
 
   actionsByCategory = {};
   actionsList: Array<any> = [];
+  private closeMenuTimeout: any;
+  private readonly wabaOnlyActions = new Set<string>([
+    TYPE_ACTION.WHATSAPP_STATIC,
+    TYPE_ACTION.WHATSAPP_ATTRIBUTE,
+    TYPE_ACTION.WHATSAPP_SEGMENT,
+    TYPE_ACTION.SEND_WHATSAPP
+  ]);
   
   private readonly logger: LoggerService = LoggerInstance.getInstance();
   actionCategory: any;
@@ -63,6 +70,7 @@ export class CdsPanelElementsComponent implements OnInit {
   } 
 
   onOpenMenu(e, type, category?: string) {
+    this.cancelCloseMenu();
     this.onMouseOverActionMenuSx.emit(true)
     setTimeout(() => {
       this.menuType = type;
@@ -80,11 +88,12 @@ export class CdsPanelElementsComponent implements OnInit {
   
   onCloseMenu() {
     // this.menuTrigger.closeMenu();
-    setTimeout(() => {
+    this.cancelCloseMenu();
+    this.closeMenuTimeout = setTimeout(() => {
       if(this.isOverMenu == false && this.isDraggingMenuElement == false){
         this.isOpen = false;
       }
-    }, 0);
+    }, 120);
   }
 
   // onMouseOverElement(e){
@@ -102,6 +111,7 @@ export class CdsPanelElementsComponent implements OnInit {
   }
 
   onOverMenu(){
+    this.cancelCloseMenu();
     this.isOverMenu = true;
   }
 
@@ -123,7 +133,7 @@ export class CdsPanelElementsComponent implements OnInit {
       const subtype = this.dashboardService.selectedChatbot.subtype?this.dashboardService.selectedChatbot.subtype:TYPE_CHATBOT.CHATBOT;
       this.logger.log('[CDS-PANEL-ELEMENTS] subtype:: ', ACTIONS_LIST, subtype);
       this.projectPlanUtils.checkIfActionIsInChatbotType(subtype as TYPE_CHATBOT);
-      let menuItemsList = Object.values(ACTIONS_LIST).filter(el => (el.category === TYPE_ACTION_CATEGORY[category.type] && el.status !== 'inactive')).map(element => {
+      let menuItemsList = Object.values(ACTIONS_LIST).filter(el => (el.category === TYPE_ACTION_CATEGORY[category.type] && el.status !== 'inactive' && this.isActionAvailableForSelectedChannel(el.type))).map(element => {
         return {
           type: TYPE_OF_MENU.ACTION,
           value: element,
@@ -136,6 +146,53 @@ export class CdsPanelElementsComponent implements OnInit {
       this.logger.log('[CDS-PANEL-ELEMENTS] menuItemsList:: ', category.type, menuItemsList);
     });
     this.logger.log('[CDS-PANEL-ELEMENTS] actionsByCategory:: ', this.actionsByCategory);
+  }
+
+  private cancelCloseMenu() {
+    if (this.closeMenuTimeout) {
+      clearTimeout(this.closeMenuTimeout);
+      this.closeMenuTimeout = null;
+    }
+  }
+
+  private isActionAvailableForSelectedChannel(actionType: any): boolean {
+    if (!this.wabaOnlyActions.has(actionType)) {
+      return true;
+    }
+    return this.isWabaChannel(this.getSelectedFlowChannel());
+  }
+
+  private isWabaChannel(channel: string): boolean {
+    return ['waba', 'whatsapp', 'whatsapp_business', 'whatsapp-business', 'meta'].includes(channel);
+  }
+
+  private getSelectedFlowChannel(): string {
+    const selectedChatbot: any = this.dashboardService.selectedChatbot || {};
+    const attrs = selectedChatbot.attributes || {};
+    const rawChannel =
+      attrs.targetChannel ||
+      attrs.channel ||
+      attrs.chatcaseChannel ||
+      attrs.templateChannel ||
+      selectedChatbot.channel ||
+      this.getChannelFromUrl();
+
+    const channel = String(rawChannel || 'casezap').trim().toLowerCase();
+    return channel || 'casezap';
+  }
+
+  private getChannelFromUrl(): string {
+    const direct = new URLSearchParams(window.location.search || '').get('channel');
+    if (direct) {
+      return direct;
+    }
+
+    const href = window.location.href || '';
+    const queryIndex = href.indexOf('?');
+    if (queryIndex === -1) {
+      return '';
+    }
+    return new URLSearchParams(href.slice(queryIndex + 1)).get('channel') || '';
   }
 
 }

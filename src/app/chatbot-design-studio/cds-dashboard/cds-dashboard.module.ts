@@ -19,41 +19,41 @@ import { WsChatbotService } from 'src/app/services/websocket/ws-chatbot.service'
 const routes: Routes = [
   { path: '', 
     component: CdsDashboardComponent,
-    title: 'Design studio',
+    title: 'Estúdio de Fluxos',
     children: [
       {
         path: 'blocks',
-        title: 'Design studio - Blocks',
+        title: 'Estúdio de Fluxos - Blocos',
         loadChildren: () => import('./cds-canvas/cds-canvas.module').then( m => m.CdsCanvasModule),
       },
       {
         path: 'fulfillment',
-        title: 'Design studio - Fulfillment',
+        title: 'Estúdio de Fluxos - Webhooks',
         loadChildren: () => import('../cds-fulfillment/cds-fulfillment.module').then( m => m.CdsFulFillMentModule),
       },
       {
         path: 'rules',
-        title: 'Design studio - Rules',
+        title: 'Estúdio de Fluxos - Regras',
         loadChildren: () => import('../cds-rules/cds-rules.module').then( m => m.CdsRulesModule),
       },
       {
         path: 'globals',
-        title: 'Design studio - Globals',
+        title: 'Estúdio de Fluxos - Variáveis globais',
         loadChildren: () => import('../cds-globals/cds-globals.module').then( m => m.CdsGlobalsModule),
       },
       {
         path: 'publish-history',
-        title: 'Design studio - Publish history',
+        title: 'Estúdio de Fluxos - Histórico de publicações',
         loadChildren: () => import('../cds-publish-history/cds-publish-history.module').then( m => m.CdsPublishHistoryModule),
       },
       {
         path: 'settings',
-        title: 'Design studio - Detail',
+        title: 'Estúdio de Fluxos - Detalhes',
         loadChildren: () => import('../cds-chatbot-details/cds-chatbot-details.module').then( m => m.CdsChatbotDetailsModule),
       },
       {
         path: 'support',
-        title: 'Design studio - Support',
+        title: 'Estúdio de Fluxos - Suporte',
         loadChildren: () => import('../cds-support/cds-support.module').then( m => m.CdsSupportModule),
       },
       {

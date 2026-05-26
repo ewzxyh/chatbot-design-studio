@@ -21,19 +21,19 @@ export class BrandService {
 
   _brand = {
     DASHBOARD: {
-      META_TITLE: "Tiledesk Support Dashboard",
-      FAVICON_URL: "https://tiledesk.com/wp-content/uploads/2022/07/tiledesk_v13-300x300.png",
-      "company_name": "Tiledesk",
-      "company_site_name": "tiledesk.com",
-      "company_site_url": "https://www.tiledesk.com",
-      "company_logo_white__url": "assets/img/logos/tiledesk-logo_white_orange.svg",
-      "company_logo_black__url": "assets/img/logos/tiledesk_3.0_logo_black_v2_no_version.svg",
-      "company_logo_allwhite__url": "assets/img/logos/tiledesk_3.0_logo_all_white_v2_no_version.svg",
-      "company_logo_no_text__url": "assets/img/logos/tiledesk-solo-logo.png",
+      META_TITLE: "ChatCase",
+      FAVICON_URL: "assets/logos/chatcase-icon.svg",
+      "company_name": "ChatCase",
+      "company_site_name": "chatcase.com.br",
+      "company_site_url": "https://chatcase.com.br",
+      "company_logo_white__url": "assets/logos/chatcase-logo-white.svg",
+      "company_logo_black__url": "assets/logos/chatcase-logo.svg",
+      "company_logo_allwhite__url": "assets/logos/chatcase-logo-white.svg",
+      "company_logo_no_text__url": "assets/logos/chatcase-icon.svg",
       "privacy_policy_link_text": "Privacy Policy",
-      "privacy_policy_url": "https://www.tiledesk.com/privacy.html",
+      "privacy_policy_url": "https://chatcase.com.br/privacidade",
       "display_terms_and_conditions_link": true,
-      "terms_and_conditions_url": "https://www.tiledesk.com/termsofservice.html",
+      "terms_and_conditions_url": "https://chatcase.com.br/termos",
       "contact_us_email": "redacted@example.invalid",
       "footer": {
           "display_terms_and_conditions_link": true,
@@ -46,21 +46,21 @@ export class BrandService {
           "display_terms_and_conditions_link": true
       },
       "handle_invitation_page": {
-          "company_logo_45x45": "assets/img/logos/tiledesk-solo-logo.png"
+          "company_logo_45x45": "assets/logos/chatcase-icon.svg"
       },
       "wizard_create_project_page": {
           "logo_x_rocket": "assets/img/logos/logo_x_rocket4x4.svg"
       },
       "wizard_install_widget_page": {
-          "logo_on_rocket": "assets/img/logos/tiledesk-solo-logo.png"
+          "logo_on_rocket": "assets/logos/chatcase-icon.svg"
       },
     },
     CHAT: {
 
     },
     CDS: {
-      META_TITLE:"Design Studio",
-      FAVICON_URL: "https://tiledesk.com/wp-content/uploads/2022/07/tiledesk_v13-300x300.png",
+      META_TITLE:"Estúdio de Fluxos",
+      FAVICON_URL: "assets/logos/chatcase-icon.svg",
       INFO_MENU_ITEMS: [
         { key: 'HELP_CENTER', icon: "", src:"", status: "inactive"},
         { key: 'ROAD_MAP', icon: "", src:"", status: "inactive"},
@@ -71,19 +71,19 @@ export class BrandService {
       ]
     },
     COMMON: {
-      COMPANY_LOGO:"assets/logos/tiledesk_logo.svg",
-      COMPANY_LOGO_NO_TEXT:"assets/logos/tiledesk_logo.svg",
-      BASE_LOGO: "assets/logos/tiledesk_logo.svg",
-      BASE_LOGO_NO_TEXT: "assets/logos/tiledesk_logo.svg",
-      BASE_LOGO_WHITE: "assets/logos/tiledesk-logo_new_white.svg",
+      COMPANY_LOGO:"assets/logos/chatcase-logo.svg",
+      COMPANY_LOGO_NO_TEXT:"assets/logos/chatcase-icon.svg",
+      BASE_LOGO: "assets/logos/chatcase-logo.svg",
+      BASE_LOGO_NO_TEXT: "assets/logos/chatcase-icon.svg",
+      BASE_LOGO_WHITE: "assets/logos/chatcase-logo-white.svg",
       BASE_LOGO_WHITE_NO_TEXT:"",
-      COMPANY_NAME: "Tiledesk",
-      BRAND_NAME: "Tiledesk",
-      COMPANY_SITE_NAME:"tiledesk.com",
-      COMANY_SITE_URL:"https://www.tiledesk.com",
+      COMPANY_NAME: "ChatCase",
+      BRAND_NAME: "ChatCase",
+      COMPANY_SITE_NAME:"chatcase.com.br",
+      COMANY_SITE_URL:"https://chatcase.com.br",
       CONTACT_US_EMAIL: "redacted@example.invalid",
       COMPANY_PRIMARY_COLOR:"",
-      DOCS: true
+      DOCS: false
     }
   }
 

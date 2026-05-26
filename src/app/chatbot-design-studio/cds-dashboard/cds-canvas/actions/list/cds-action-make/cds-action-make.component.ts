@@ -194,7 +194,7 @@ export class CdsActionMakeComponent implements OnInit {
   }
 
   goToHelp(){
-    let url = "https://gethelp.tiledesk.com/articles/makecom-action/"
+    let url = "https://chatcase.com.br"
     window.open(url, '_blank')
   }
 }

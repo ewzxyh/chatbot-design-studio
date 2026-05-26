@@ -31,6 +31,6 @@ RUN rm -rf /usr/share/nginx/html/*
 ## From ‘builder’ stage copy over the artifacts in dist folder to default nginx public folder
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
 
-RUN echo "Tiledesk Design Studio Started!!"
+RUN echo "ChatCase Estúdio de Fluxos Started!!"
 
 CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/design-studio-config-template.json > /usr/share/nginx/html/design-studio-config.json && exec nginx -g 'daemon off;'"]

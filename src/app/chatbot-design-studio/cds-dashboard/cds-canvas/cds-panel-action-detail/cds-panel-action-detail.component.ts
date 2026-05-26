@@ -214,7 +214,7 @@ export class CdsActionDetailPanelComponent implements OnInit, OnChanges {
 
   goToContactSales(){
     let user = this.tiledeskAuthService.getCurrentUser();
-    window.open(`mailto:redacted@example.invalid?subject=Upgrade to Tiledesk ${this.canShowActionByPlan.plan}`);
+    window.open(`mailto:redacted@example.invalid?subject=Upgrade ChatCase ${this.canShowActionByPlan.plan}`);
     try {
       window['analytics'].page('CDS Contact sales', {
         action: this.elementSelected

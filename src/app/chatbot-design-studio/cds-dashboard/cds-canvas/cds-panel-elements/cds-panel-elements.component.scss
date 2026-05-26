@@ -83,6 +83,15 @@ svg {
     margin: 0;
     position: absolute;
     top: 0px;
-    left: 85px;
+    left: 78px;
     border: 2px solid var(--gray-02);
+}
+
+#menuElement::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: -4px;
+    width: 14px;
+    height: calc(100% + 8px);
 }

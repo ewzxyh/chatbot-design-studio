@@ -163,7 +163,7 @@ export class CdsPanelElementsComponent implements OnInit {
   }
 
   private isWabaChannel(channel: string): boolean {
-    return ['waba', 'whatsapp', 'whatsapp_business', 'whatsapp-business', 'meta'].includes(channel);
+    return ['all', 'waba', 'whatsapp', 'whatsapp_business', 'whatsapp-business', 'meta'].includes(channel);
   }
 
   private getSelectedFlowChannel(): string {
@@ -177,8 +177,8 @@ export class CdsPanelElementsComponent implements OnInit {
       selectedChatbot.channel ||
       this.getChannelFromUrl();
 
-    const channel = String(rawChannel || 'casezap').trim().toLowerCase();
-    return channel || 'casezap';
+    const channel = String(rawChannel || 'all').trim().toLowerCase();
+    return channel || 'all';
   }
 
   private getChannelFromUrl(): string {

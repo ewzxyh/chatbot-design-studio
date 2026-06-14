@@ -721,6 +721,9 @@
       "AudioRecord": "Gravar ?udio",
       "SendWhatsapp": "Enviar WhatsApp"
     },
+    "CHANNEL_WARNING": {
+      "WabaSpecific": "Acao nativa do WhatsApp Business. Em CaseZap, use uma resposta de texto alternativa quando necessario."
+    },
     "DOC": {
       "Reply": {
         "TITLE": "Send a message back to the user",

@@ -42,6 +42,7 @@
                     <span *ngIf="!item.canLoad" class="trigger-beta-badge">PRO</span>
                     <!-- <span *ngIf="item.value.badge" class="trigger-beta-badge" [class.deprecation-badge]="item.value.badge==='DEP'" [class.beta-badge]="item.value.badge==='beta'" [class.new-badge]="item.value.badge==='new'">{{item.value.badge}}</span> -->
                     <span *ngIf="item.value.badge" [class]="'trigger-beta-badge badge-' + item.value.badge">{{item.value.badge}}</span>
+                    <span *ngIf="item.value.channelBadge" class="trigger-channel-badge" [title]="item.value.channelWarning | translate">{{item.value.channelBadge}}</span>
 
                     <div *ngIf="item.value.src && item.value.name" class="action-btn-icon">
                         <button class="btn btn-tdblu-no-boxshadow drag-btn">

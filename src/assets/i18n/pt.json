@@ -3167,6 +3167,9 @@
       "SpeechForm": "Formulário de voz",
       "AudioRecord": "Gravar ?udio"
     },
+    "CHANNEL_WARNING": {
+      "WabaSpecific": "Acao nativa do WhatsApp Business. Em CaseZap, use uma resposta de texto alternativa quando necessario."
+    },
     "DOC": {
       "Reply": {
         "DOC_URL": "https://chatcase.com.br",

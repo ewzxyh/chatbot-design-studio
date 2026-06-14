@@ -110,6 +110,21 @@ $base-padding: 6px;
     align-items: center;
 }
 
+.trigger-channel-badge {
+    align-items: center;
+    background: #e8f2ff;
+    border: 1px solid #b7d4ff;
+    border-radius: 5px;
+    color: #2457a6;
+    display: flex;
+    font-size: 9px;
+    font-weight: 600;
+    height: 16px;
+    letter-spacing: .4px;
+    margin: 0 3px;
+    padding: 0 6px;
+}
+
 .badge-NEW {
     background: linear-gradient(45deg, #3167e2, #a736ff);
 }

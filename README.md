@@ -29,5 +29,5 @@ Depois do build, o CDS fica disponivel em:
 
 - Branding, favicon e metadata usam assets locais em `src/assets/logos/`.
 - A interface do CDS fica fixada em `pt`.
-- O painel de blocos filtra acoes especificas de WABA quando o fluxo esta marcado como CaseZap.
+- O painel de blocos mantem fluxos multicanais por padrao; acoes WABA-especificas ficam sinalizadas com badge/tooltip, e o fallback seguro e tratado no runtime.
 - A imagem/video de ajuda bloqueada na tela de regras foi removida para evitar iframe bloqueado no proxy.

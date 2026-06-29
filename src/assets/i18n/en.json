@@ -644,7 +644,7 @@
     "contains": "contém",
     "containsIgnoreCase": "contém ignorando maiúsculas",
     "isEmpty": "está vazio",
-    "isNull": "? nulo",
+    "isNull": "é nulo",
     "isUndefined": "não está definido",
     "matches": "corresponde ao padrão"
   },
@@ -718,11 +718,11 @@
       "BlindTransfer": "Transferência direta",
       "PlayPrompt": "Reproduzir prompt",
       "SpeechForm": "Formulário de voz",
-      "AudioRecord": "Gravar ?udio",
+      "AudioRecord": "Gravar áudio",
       "SendWhatsapp": "Enviar WhatsApp"
     },
     "CHANNEL_WARNING": {
-      "WabaSpecific": "Acao nativa do WhatsApp Business. Em CaseZap, use uma resposta de texto alternativa quando necessario."
+      "WabaSpecific": "Ação nativa do WhatsApp Business. Em CaseZap, use uma resposta de texto alternativa quando necessário."
     },
     "DOC": {
       "Reply": {

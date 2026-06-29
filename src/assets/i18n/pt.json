@@ -2683,7 +2683,7 @@
     "UploadCsv": "Enviar CSV",
     "Completed": "Concluído",
     "UploadAndOverwrite": "Enviar e sobrescrever",
-    "YouCanImportBlocks": "Voc? pode importar blocos sobrescrevendo ou mantendo os blocos existentes",
+    "YouCanImportBlocks": "Você pode importar blocos sobrescrevendo ou mantendo os blocos existentes",
     "FaqsSuccessfullyUploaded": "FAQs enviadas com sucesso",
     "AnErrorOccurredDuringTheUpload": "Ocorreu um erro durante o envio",
     "InTheCSVFileToBeUploadedTheColumnsAreSeparatedBy": "No arquivo CSV a ser enviado, as colunas são separadas por",
@@ -2704,7 +2704,7 @@
     "UpdateYourProfile": "Atualizar perfil",
     "Processing": "Processando...",
     "SearchABlock": "pesquisar bloco...",
-    "SlugAlreadyExists": "Ocorreu um erro: slug j? existe",
+    "SlugAlreadyExists": "Ocorreu um erro: slug já existe",
     "VoiceProvider": "Provedor de voz",
     "VoiceName": "Voz",
     "VoiceLanguage": "Idioma da voz",
@@ -2712,8 +2712,8 @@
     "SpeechToTextModel": "Modelo de fala para texto",
     "SelectProvider": "Selecionar provedor",
     "SelectAnOption": "Selecione uma opção",
-    "TextToSpeechModelDescription": "Gera ?udio a partir do texto informado.",
-    "SpeechToTextModelDescription": "Transcreve ?udio no idioma informado."
+    "TextToSpeechModelDescription": "Gera áudio a partir do texto informado.",
+    "SpeechToTextModelDescription": "Transcreve áudio no idioma informado."
   },
   "VoiceSettings": "Configurações de voz",
   "Developer": "Desenvolvedor",
@@ -3090,7 +3090,7 @@
     "contains": "contém",
     "containsIgnoreCase": "contém ignorando maiúsculas",
     "isEmpty": "está vazio",
-    "isNull": "? nulo",
+    "isNull": "é nulo",
     "isUndefined": "não está definido",
     "matches": "corresponde ao padrão"
   },
@@ -3165,10 +3165,10 @@
       "BlindTransfer": "Transferência direta",
       "PlayPrompt": "Reproduzir prompt",
       "SpeechForm": "Formulário de voz",
-      "AudioRecord": "Gravar ?udio"
+      "AudioRecord": "Gravar áudio"
     },
     "CHANNEL_WARNING": {
-      "WabaSpecific": "Acao nativa do WhatsApp Business. Em CaseZap, use uma resposta de texto alternativa quando necessario."
+      "WabaSpecific": "Ação nativa do WhatsApp Business. Em CaseZap, use uma resposta de texto alternativa quando necessário."
     },
     "DOC": {
       "Reply": {

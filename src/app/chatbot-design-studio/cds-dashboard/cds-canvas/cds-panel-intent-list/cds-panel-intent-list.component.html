@@ -14,27 +14,27 @@
                     (click)="onSelectIntent(intent)">
 
                     <div class="icon-container">
-                        <span class="material-icons">{{onGetIconForName(intent)}}</span>
+                        <mat-icon class="icon tabler-icon" [svgIcon]="onGetIconForName(intent)" aria-hidden="true"></mat-icon>
                     </div>
 
                     <div class="item-box" *ngIf="IS_OPEN">
                         <div>
-                            <p class="intent-display-name ellips"><span *ngIf="intent.agents_available" class="agents-available material-icons">boy</span>{{intent.intent_display_name}}</p>
+                            <p class="intent-display-name ellips"><mat-icon *ngIf="intent.agents_available" class="icon tabler-icon agents-available" svgIcon="td-user" aria-hidden="true"></mat-icon>{{intent.intent_display_name}}</p>
                             <div class="icon-list">
 
                                 <p *ngIf="intent.questions" class="ai-icon icon">Ai</p>
 
                                 <!-- <span *ngIf="!intent.webhook_enabled" class="material-icons icon webhook-icon">webhook</span> -->
-                                <mat-icon  *ngIf="intent.webhook_enabled" class="icon" svgIcon="webhook" aria-hidden="true"></mat-icon>
+                                <mat-icon  *ngIf="intent.webhook_enabled" class="icon tabler-icon" svgIcon="td-webhook" aria-hidden="true"></mat-icon>
 
                                 <!-- <span *ngIf="!intent.form" class="material-icons icon list-alt-icon">list_alt</span> -->
-                                <mat-icon  *ngIf="intent.form" class="icon" svgIcon="list_alt" aria-hidden="true"></mat-icon>
+                                <mat-icon  *ngIf="intent.form" class="icon tabler-icon" svgIcon="td-list" aria-hidden="true"></mat-icon>
 
 
 
                                 <div *ngIf="intent?.actions && intent?.actions?.length > 0" class="actions">
                                     <!-- <span class="material-icons icon bolt-icon">bolt</span> -->
-                                    <mat-icon class="icon" svgIcon="bolt" aria-hidden="true"></mat-icon>
+                                    <mat-icon class="icon tabler-icon" svgIcon="td-bolt" aria-hidden="true"></mat-icon>
                                     <p class="action-counter icon">{{ intent.actions?.length }}</p>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
 
     <div class="search-box">
         <div class="icon-container">
-            <mat-icon class="icon" svgIcon="search" aria-hidden="true"></mat-icon>
+            <mat-icon class="icon tabler-icon" svgIcon="td-search" aria-hidden="true"></mat-icon>
             <!-- <span class="material-icons">search</span> -->
         </div>
         <div class="input-box-search-input-wpr">
@@ -77,7 +77,7 @@
                 value="intent.intent_id" (click)="onSelectIntent(intent)">
                 
                 <div class="icon-container">
-                    <mat-icon class="icon" [class.active-icon]="idSelectedIntent === intent.intent_id" svgIcon="block" aria-hidden="true"></mat-icon>
+                    <mat-icon class="icon tabler-icon" [class.active-icon]="idSelectedIntent === intent.intent_id" svgIcon="td-box" aria-hidden="true"></mat-icon>
                     <!-- <img src="assets/images/icons/block.svg"
                         [class.active-icon]="idSelectedIntent === intent.intent_id"
                         class=" "> -->
@@ -87,20 +87,20 @@
                     <div>
                         <p class="intent-display-name ellips">
                             <!-- <span *ngIf="!intent.agents_available" class="agents-available material-icons">boy</span> -->
-                            <mat-icon *ngIf="intent.agents_available" class="icon agents-available" svgIcon="man" aria-hidden="true"></mat-icon>
+                            <mat-icon *ngIf="intent.agents_available" class="icon tabler-icon agents-available" svgIcon="td-user" aria-hidden="true"></mat-icon>
                             {{intent.intent_display_name}}
                         </p>
                         <div class="icon-list">
                             <p *ngIf="intent.questions" class="ai-icon icon">Ai</p>
               
-                            <mat-icon *ngIf="intent.webhook_enabled" class="icon" svgIcon="webhook" aria-hidden="true"></mat-icon>
+                            <mat-icon *ngIf="intent.webhook_enabled" class="icon tabler-icon" svgIcon="td-webhook" aria-hidden="true"></mat-icon>
                             <!-- <span *ngIf="!intent.webhook_enabled" class="material-icons icon webhook-icon">webhook</span> -->
 
-                            <mat-icon *ngIf="intent.form" class="icon" svgIcon="list_alt" aria-hidden="true"></mat-icon>
+                            <mat-icon *ngIf="intent.form" class="icon tabler-icon" svgIcon="td-list" aria-hidden="true"></mat-icon>
                             <!-- <span *ngIf="!intent.form" class="material-icons icon list-alt-icon">list_alt</span> -->
 
                             <div *ngIf="intent?.actions && intent?.actions?.length > 0" class="actions">
-                                <mat-icon class="icon" svgIcon="bolt" aria-hidden="true"></mat-icon>
+                                <mat-icon class="icon tabler-icon" svgIcon="td-bolt" aria-hidden="true"></mat-icon>
                                 <!-- <span class="material-icons icon bolt-icon">bolt</span> -->
                                 <p class="action-counter icon">{{ intent.actions?.length }}</p>
                             </div>

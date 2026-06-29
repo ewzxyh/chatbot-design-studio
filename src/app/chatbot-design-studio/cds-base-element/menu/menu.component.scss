@@ -36,6 +36,7 @@
         box-shadow: #1321440a 0 12px 24px, #1321440a 0 8px 12px, #13214405 0 4px 4px, #13214403 0 2px 2px, #13214403 0 1px 1px, #11316008 0 0, #1131600f 0 0 0 1px;
         
         span.material-icons-outlined,
+        mat-icon,
         img{
             color: var(--text-hover-color);
             filter: brightness(0) saturate(100%) invert(35%) sepia(48%) saturate(441%) hue-rotate(183deg) brightness(97%) contrast(88%); 
@@ -62,8 +63,10 @@
     align-items: center;
     justify-content: center;
     span.material-icons-outlined,
+    mat-icon,
     img{
         width: 16px;
+        height: 16px;
         font-size: 16px;
         color: var(--icon-color-menu);
         filter: brightness(0) saturate(100%) invert(96%) sepia(0%) saturate(504%) hue-rotate(151deg) brightness(92%) contrast(88%);
@@ -80,6 +83,11 @@
 
 .external-link:hover{
     text-decoration: underline;
+}
+
+.menu-link-icon {
+    width: 14px;
+    height: 14px;
 }
 
 .custom-divider {

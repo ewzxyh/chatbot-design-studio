@@ -2,7 +2,7 @@
     <div class="new-rules-box" [style.display]="showWelcome? 'none': 'block'">
         <div class="button-wrp">
             <button id="cds-new-rules-button" type="button" class="btn btn-primary cds-blue-button" (click)="addNew()"> 
-                <span class="material-icons icon plus-icon">add</span>
+                <mat-icon class="icon plus-icon" svgIcon="td-plus" aria-hidden="true"></mat-icon>
                 {{'Add' | translate}}
             </button>
         </div>

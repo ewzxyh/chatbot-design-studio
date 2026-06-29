@@ -59,7 +59,7 @@
                         [showUtils]="false"
                         [placeholder]="'CDSGlobals.value' | translate">
                     </cds-text>
-                    <span class="material-icons-outlined copy-icon" (click)="copyToClipboard(global.value)">content_copy</span>
+                    <mat-icon class="copy-icon" svgIcon="td-copy" (click)="copyToClipboard(global.value)" aria-hidden="true"></mat-icon>
                 </div>
 
                 <!-- <div class="input-container">
@@ -82,7 +82,7 @@
                     <button id="cds-custom-icon-button"
                         class="btn btn-primary cds-blue-button" 
                         [matMenuTriggerFor]="menu" aria-label="Actions">
-                        <span class="material-icons">more_vert</span>
+                        <mat-icon svgIcon="td-dots-vertical" aria-hidden="true"></mat-icon>
                     </button>
                 </div>
 
@@ -92,7 +92,7 @@
                         <div class="menu-box">
                             <div class="menu-btns-wpr" (click)="showUpdateSecret(i, global)">
                                 <div class="menu-btn-icon">
-                                    <span class="material-icons-outlined">edit</span>
+                                    <mat-icon svgIcon="td-pencil" aria-hidden="true"></mat-icon>
                                 </div>
                                 <div class="menu-btn-text truncate">{{ "Edit" | translate}}</div>
                             </div>
@@ -100,7 +100,7 @@
                         <div class="action-box">
                             <div class="menu-btns-wpr" (click)="deleteElement(global.key)">
                                 <div class="menu-btn-icon">
-                                    <span class="material-icons-outlined">delete</span>
+                                    <mat-icon svgIcon="td-trash" aria-hidden="true"></mat-icon>
                                 </div>
                                 <div class="menu-btn-text truncate">{{ "Delete" | translate}}</div>
                             </div>
@@ -112,7 +112,7 @@
             <div class="add-btn-wrp">
                 <div></div>
                 <button type="button" class="btn btn-primary cds-blue-button" (click)="addNew()">
-                    <span class="material-icons icon plus-icon">add</span>
+                    <mat-icon class="icon plus-icon" svgIcon="td-plus" aria-hidden="true"></mat-icon>
                     {{ "Add" | translate }}
                 </button>
             </div>

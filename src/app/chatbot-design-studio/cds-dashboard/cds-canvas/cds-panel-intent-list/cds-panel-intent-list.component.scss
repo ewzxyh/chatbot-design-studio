@@ -365,6 +365,19 @@ mat-icon.agents-available {
     }
 }
 
+.tabler-icon {
+    color: currentColor;
+    width: 18px;
+    height: 18px;
+
+    ::ng-deep svg {
+        fill: none !important;
+        stroke: currentColor;
+        width: 18px;
+        height: 18px;
+    }
+}
+
 .agents-available {
     font-size: 16px;
 }

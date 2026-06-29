@@ -15,6 +15,11 @@ export class CdsSupportComponent implements OnInit {
   SUPPORT_OPTIONS = SUPPORT_OPTIONS
   cardOptions: { [key: string]: Array<{ key: string, label: string, icon: string, type: TYPE_URL, status: "active" | "inactive", src?: string, description?: string, localIcon?: boolean }>}
   private logger: LoggerService = LoggerInstance.getInstance()
+  private readonly iconAliases: { [key: string]: string } = {
+    help: 'td-help-circle',
+    lightbulb: 'td-bulb',
+    mail: 'td-mail',
+  };
   
   constructor(
     private dashboardService: DashboardService
@@ -61,6 +66,16 @@ export class CdsSupportComponent implements OnInit {
       window.open(item.src, '_blank')
     }
 
+  }
+
+  getSvgIconName(icon: string): string {
+    if (!icon) {
+      return null;
+    }
+    if (icon.startsWith('td-')) {
+      return icon;
+    }
+    return this.iconAliases[icon] || null;
   }
 
   private manageWidget(status: "hide" | "show" | "open" | "close" | "start", projectInfo?: any) {

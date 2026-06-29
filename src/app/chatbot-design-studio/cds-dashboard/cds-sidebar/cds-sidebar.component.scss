@@ -80,6 +80,8 @@
     vertical-align: middle;
     font-size: 18px;
     margin-left: 6px;
+    width: 18px;
+    height: 18px;
 }
 
 .settings-sidebar > li:hover {
@@ -213,6 +215,8 @@ li > a {
         color: var(--blu-03);
         fill: var(--blu-03);
         display: flex;
+        width: 24px;
+        height: 24px;
     }
 
 }

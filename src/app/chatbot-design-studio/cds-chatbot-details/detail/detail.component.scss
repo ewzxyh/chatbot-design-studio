@@ -149,12 +149,24 @@ input[type="file"] {
     // width: 145px;
 }
 
+.button-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
 #cds-delete-bot-img-btn {
     color: var(--color-white-hex);
     background: var(--color-red-hex) !important;
     height: 44px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+
+    .button-icon {
+        margin-right: 0;
+        color: var(--color-white-hex);
+    }
 }
 
 #activate-bot {

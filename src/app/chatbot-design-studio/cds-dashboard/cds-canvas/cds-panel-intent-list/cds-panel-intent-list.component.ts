@@ -39,11 +39,11 @@ export class CdsPanelIntentListComponent implements OnInit, OnChanges {
   idSelectedIntent: string;
 
 
-  ICON_DEFAULT = 'package_2';
-  ICON_ROCKET = 'rocket_launch';
-  ICON_UNDO = 'undo';
-  ICON_CLOSE = 'call_end';
-  ICON_WEBHOOK = 'webhook';
+  ICON_DEFAULT = 'td-box';
+  ICON_ROCKET = 'td-rocket';
+  ICON_UNDO = 'td-arrow-back-up';
+  ICON_CLOSE = 'td-phone-off';
+  ICON_WEBHOOK = 'td-webhook';
 
   private readonly logger: LoggerService = LoggerInstance.getInstance()
   

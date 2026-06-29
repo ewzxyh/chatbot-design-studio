@@ -6,12 +6,13 @@
         <div class="menu-box" *ngFor="let item of items">
             <div class="menu-btns-wpr" (click)="onItemClick(item)">
                 <div class="menu-btn-icon">
-                    <span class="material-icons-outlined" *ngIf="!item.localIcon">{{item.icon}}</span>
+                    <mat-icon *ngIf="!item.localIcon && getSvgIconName(item.icon)" [svgIcon]="getSvgIconName(item.icon)" aria-hidden="true"></mat-icon>
+                    <span class="material-icons-outlined" *ngIf="!item.localIcon && !getSvgIconName(item.icon)">{{item.icon}}</span>
                     <img class="icon" *ngIf="item.localIcon" [src]="item.icon"/>
                 </div>
                 <div class="menu-btn-text truncate"
                     [ngClass]="{'external-link': item.type === TYPE_URL.BLANK }">{{ item.label | translate}}</div>
-                <span class="material-icons-outlined menu-btn-text" *ngIf="item.type === TYPE_URL.BLANK">open_in_new</span>
+                <mat-icon class="menu-btn-text menu-link-icon" *ngIf="item.type === TYPE_URL.BLANK" svgIcon="td-external-link" aria-hidden="true"></mat-icon>
                 
             </div>
         </div>

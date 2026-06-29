@@ -9,6 +9,7 @@ import { CdsSplashScreenComponent } from '../chatbot-design-studio/cds-dashboard
 import { SatPopoverModule } from '@ncstate/sat-popover';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MatIconModule } from '@angular/material/icon';
 // import { DirectivesModule } from '../_directives/directives';
 // import { NavbarComponent } from '../components/navbar/navbar.component';
 
@@ -16,6 +17,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   imports: [
     CommonModule,
     TranslateModule,
+    MatIconModule,
     // SatPopoverModule,
     // PickerModule
     // DirectivesModule

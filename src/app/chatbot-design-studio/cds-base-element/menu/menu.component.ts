@@ -32,6 +32,16 @@ export class CDSMenuComponent implements OnInit {
   version: string;
   BRAND_BASE_INFO = BRAND_BASE_INFO;
   private logger: LoggerService = LoggerInstance.getInstance()
+  private readonly iconAliases: { [key: string]: string } = {
+    arrow_back: 'td-arrow-left',
+    copy: 'td-copy',
+    file_download: 'td-download',
+    help: 'td-help-circle',
+    lightbulb: 'td-bulb',
+    logout: 'td-logout',
+    open_in_browser: 'td-external-link',
+    open_in_new: 'td-external-link',
+  };
 
   constructor(
     private dashboardService: DashboardService,
@@ -61,5 +71,15 @@ export class CDSMenuComponent implements OnInit {
 
   onItemClick(item: { label: string, icon: string, src?: string}){
     this.onMenuOption.emit(item)
+  }
+
+  getSvgIconName(icon: string): string {
+    if (!icon) {
+      return null;
+    }
+    if (icon.startsWith('td-')) {
+      return icon;
+    }
+    return this.iconAliases[icon] || null;
   }
 }

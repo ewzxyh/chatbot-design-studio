@@ -7,7 +7,7 @@
     <div *ngIf="!IS_OPEN_SIDEBAR">
         <img class="logo" [src]="LOGOS_ITEMS['BASE_LOGO_NO_TEXT'].icon">
         <!-- <span class="material-icons" (click)="goToBack()">arrow_back</span> -->
-        <span class="material-icons" [matMenuTriggerFor]="menu">more_vert</span>
+        <mat-icon class="header-menu-icon" svgIcon="td-dots-vertical" [matMenuTriggerFor]="menu" aria-hidden="true"></mat-icon>
     </div>
     <img *ngIf="IS_OPEN_SIDEBAR" [src]="LOGOS_ITEMS['BASE_LOGO'].icon">
 </div>
@@ -31,7 +31,7 @@
     </div>
     <div class="header-title ellips">
         {{ selectedChatbot?.name }}
-        <span class="material-icons" *ngIf="(SHARE_MENU_ITEMS | filter:{key: 'status', value: 'active' }).length > 0" [matMenuTriggerFor]="menuShare">ios_share</span>
+        <mat-icon class="header-share-icon" *ngIf="(SHARE_MENU_ITEMS | filter:{key: 'status', value: 'active' }).length > 0" svgIcon="td-external-link" [matMenuTriggerFor]="menuShare" aria-hidden="true"></mat-icon>
     </div>
     <div class="right-opts">
 
@@ -112,10 +112,10 @@
                 matTooltip="{{ 'TestIt' | translate}}" #tooltip="matTooltip" matTooltipPosition='below'
                 matTooltipHideDelay="100">
             <button *ngIf="!isPlaying" id="cds-test-it-out-btn" class="btn btn-primary pull-right cds-blue-button" type="button" (click)="onOpenTestItOut()">
-                <mat-icon class="toggle-setting-sidebar-icon2" svgIcon="play" aria-hidden="true"></mat-icon>
+                <mat-icon class="toggle-setting-sidebar-icon2" svgIcon="td-player-play" aria-hidden="true"></mat-icon>
             </button>
             <button *ngIf="isPlaying" id="cds-test-it-out-btn" class="btn btn-primary pull-right cds-blue-button button-stop" type="button" (click)="onCloseTestItOut()">
-                <mat-icon class="" svgIcon="stop" aria-hidden="true"></mat-icon>
+                <mat-icon svgIcon="td-player-stop" aria-hidden="true"></mat-icon>
             </button>
         </div>
 

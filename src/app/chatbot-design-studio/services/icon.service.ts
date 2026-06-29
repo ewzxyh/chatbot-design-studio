@@ -6,12 +6,48 @@ import { DomSanitizer } from '@angular/platform-browser';
   providedIn: 'root', // Questo rende il servizio disponibile in tutta l'app
 })
 export class IconService {
+  private readonly tablerIcons = [
+    'arrow-back-up',
+    'arrow-left',
+    'bolt',
+    'box',
+    'bulb',
+    'chevron-right',
+    'copy',
+    'dots-vertical',
+    'download',
+    'external-link',
+    'git-branch',
+    'help-circle',
+    'history',
+    'key',
+    'lifebuoy',
+    'list-check',
+    'list',
+    'lock',
+    'logout',
+    'mail',
+    'pencil',
+    'phone-off',
+    'player-play',
+    'player-stop',
+    'plus',
+    'rocket',
+    'search',
+    'settings',
+    'trash',
+    'upload',
+    'user',
+    'webhook',
+  ];
+
   constructor(
     private readonly matIconRegistry: MatIconRegistry, 
     private readonly domSanitizer: DomSanitizer
   ) {}
 
   registerIcons(): void {
+    this.registerTablerIcons();
 
     // ai prompt //
     this.matIconRegistry.addSvgIcon(
@@ -491,6 +527,15 @@ export class IconService {
       'brain',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/brain.svg')
     );
+  }
+
+  private registerTablerIcons(): void {
+    this.tablerIcons.forEach(icon => {
+      this.matIconRegistry.addSvgIcon(
+        `td-${icon}`,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(`assets/images/icons/tabler/${icon}.svg`)
+      );
+    });
   }
 }
 

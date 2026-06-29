@@ -50,7 +50,7 @@
 
             <div class="field-box" *ngIf="(globalForm.controls.key.errors?.pattern || globalForm.controls.key.errors?.required) && (globalForm.controls.key.dirty || globalForm.controls.key.touched)">
                 <div class="tpl-info">
-                    <i class="material-icons-outlined tpl-info-icon">help_outline</i>
+                    <mat-icon class="tpl-info-icon" svgIcon="td-help-circle" aria-hidden="true"></mat-icon>
                     <div class="tpl-info-text">
                         <span [innerHTML]="'CDSCanvas.TheGlobalKeyMustBe' | translate"></span>
                     </div>

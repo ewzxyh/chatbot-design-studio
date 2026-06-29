@@ -32,7 +32,7 @@
 
           <label for="file-upload" class="custom-file-upload">
             <span *ngIf="!isFilePendingToUpload">
-              <i class="fa fa-cloud-upload"></i> 
+              <mat-icon class="button-icon" svgIcon="td-upload" aria-hidden="true"></mat-icon>
               {{ 'UserProfile.UploadImage' | translate }}
             </span>
             <span *ngIf="isFilePendingToUpload">
@@ -44,9 +44,7 @@
 
           <button id="cds-delete-bot-img-btn" class="btn btn-primary cds-blue-button"
             (click)="deleteBotProfileImage()">
-            <span class="material-icons" style="font-size: 24px; color: #fff">
-              delete_forever
-            </span>
+            <mat-icon class="button-icon" svgIcon="td-trash" aria-hidden="true"></mat-icon>
             <!-- <span class="bottom" style="min-width: fit-content;padding: 5px;border-radius: 3px; text-transform: none;">
               {{'RemovePhoto' | translate}}
             </span> -->

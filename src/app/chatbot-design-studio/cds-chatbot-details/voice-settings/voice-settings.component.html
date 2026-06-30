@@ -64,9 +64,11 @@
                         <a [href]="DOCS_LINK.chatbot_slug.link" [target]="DOCS_LINK.chatbot_slug.target">{{ 'LearnMore' | translate }}</a>
                     </span> -->
                     <div *ngIf="selectedPreviewUrl" class="audio-player-circle d-flex justify-content-center align-items-center" (click)="togglePlay()">
-                        <span class="material-icons">
-                          {{ isPlaying ? 'pause_circle' : 'play_circle' }}
-                        </span>
+                        <mat-icon
+                            class="audio-player-icon"
+                            [svgIcon]="isPlaying ? 'td-player-pause' : 'td-player-play'"
+                            aria-hidden="true">
+                        </mat-icon>
                     </div>
                 </div>
             </div>

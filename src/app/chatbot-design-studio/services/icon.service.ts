@@ -25,6 +25,7 @@ export class IconService {
     'history',
     'key',
     'lifebuoy',
+    'link',
     'list-check',
     'list',
     'lock',
@@ -33,6 +34,7 @@ export class IconService {
     'pencil',
     'phone-off',
     'player-play',
+    'player-pause',
     'player-stop',
     'plus',
     'rocket',
@@ -43,6 +45,7 @@ export class IconService {
     'upload',
     'user',
     'webhook',
+    'x',
   ];
 
   constructor(

@@ -84,7 +84,9 @@ ng-select {
 .link {
     margin: 0;
 
-    .material-icons {
+    .community-tabler-icon {
+        width: 20px;
+        height: 20px;
         transform: rotate(135deg);
     }
 
@@ -151,6 +153,11 @@ ng-select {
     display: flex;
     align-items: center;
     justify-items: center;
+}
+
+.community-tag-delete-icon {
+    width: 12px;
+    height: 12px;
 }
 
 .bot-description-note {

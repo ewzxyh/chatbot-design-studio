@@ -36,7 +36,7 @@
                 <label class="link">
                     <a (click)="goToCommunityChatbotDetail(selectedChatbot?._id)"
                         *ngIf="selectedChatbot?.public === true">
-                        <span class="material-icons">link</span>
+                        <mat-icon class="community-tabler-icon" svgIcon="td-link" aria-hidden="true"></mat-icon>
                     </a>
                 </label>
             </div>
@@ -173,7 +173,7 @@
                             </div>
 
                             <div class="cds-chatbot-tag-delete-icon-wpr" (click)="removeTag(tag)">
-                                <i class="material-icons" style="font-size: 12px;"> close </i>
+                                <mat-icon class="community-tag-delete-icon" svgIcon="td-x" aria-hidden="true"></mat-icon>
                             </div>
                         </div>
                     </div>

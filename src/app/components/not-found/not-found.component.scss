@@ -24,7 +24,7 @@
 }
 
 h2 {
-    font-family: 'Cabin', sans-serif;
+    font-family: var(--font-geist-sans);
     font-size: 20px;
     font-weight: 400;
     text-transform: uppercase;
@@ -33,7 +33,7 @@ h2 {
     margin-bottom: 25px
 }
 h3 {
-    font-family: 'Cabin', sans-serif;
+    font-family: var(--font-geist-sans);
     position: relative;
     font-size: 16px;
     font-weight: 700;
@@ -45,7 +45,7 @@ h3 {
 }
 
 h1{
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-geist-sans);
     position: absolute;
     left: 50%;
     top: 50%;

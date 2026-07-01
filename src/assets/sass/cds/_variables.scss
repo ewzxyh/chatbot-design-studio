@@ -68,8 +68,8 @@
 :root{
 
     // Typography elements
-    --font-family-poppins: 'Poppins', 'Roboto', Arial, sans-serif;
-    $mdb-font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
+    --font-family-poppins: var(--font-geist-sans);
+    $mdb-font-family: var(--font-geist-sans) !default;
 
     /* LIGHT TEME COLORS*/
     --color-white-hex: #ffffff;

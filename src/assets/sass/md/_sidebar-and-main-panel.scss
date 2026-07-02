@@ -34,6 +34,8 @@
     left: 0;
     // z-index: 1;
     z-index: 1052; // Nk changed
+    background-color: $brand-sidebar-bckgrnd-bottom-section;
+    border-right: 1px solid #e5e7eb;
     // @include shadow-big(); nk commented 8set20
 
     // ----------------------------------------------
@@ -107,7 +109,7 @@
             }
 
             &.active > a {
-                color: #ffffff;
+                color: $brand-sidebar-active-item-text-color;
 
                 i {
                     // color: #FFFFFF;
@@ -259,7 +261,7 @@
     .nav {
         > li > a,
         > li > a:hover {
-            color: $white-color;
+            color: $brand-sidebar-inactive-item-text-color;
         }
 
         > li > a:focus {

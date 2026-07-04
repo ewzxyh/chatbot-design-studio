@@ -21,17 +21,25 @@
             {{ 'Language' | translate }}
         </label>
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-          <div class="input-group">
-            <input id="bot-default-selected-lang" 
-              class="input csd-chatbot-dtls-input" 
-              name="bot-default-selected-lang" 
-              [(ngModel)]="botDefaultSelectedLang"
-              type="text" 
-              disabled>
-            <button id="csd-update-bot-btn" class="btn btn-primary pull-left cds-blue-button" (click)="updateBotLanguage()">
-                {{ 'Change' | translate }}
-            </button>
-          </div>
+          <ng-select
+            class="csd-chatbot-dtls-input"
+            id="bot-default-selected-lang"
+            name="bot-default-selected-lang"
+            [items]="botDefaultLanguages"
+            bindLabel="name"
+            bindValue="code"
+            [clearable]="false"
+            [(ngModel)]="selectedBotLanguage"
+            (change)="onBotLanguageChange($event)"
+            (keyup.enter)="ngSelectBotLanguage.close()"
+            #ngSelectBotLanguage>
+            <ng-template ng-label-tmp let-item="item">
+              {{ item.name }}
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item">
+              {{ item.name }}
+            </ng-template>
+          </ng-select>
         </div>
     </div>
 </div>

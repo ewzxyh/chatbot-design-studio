@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Chatbot } from 'src/app/models/faq_kb-model';
 import { BrandService } from 'src/app/services/brand.service';
@@ -13,7 +13,7 @@ import { EXTERNAL_URL } from '../../utils';
   templateUrl: './developer.component.html',
   styleUrls: ['./developer.component.scss']
 })
-export class CDSDetailDeveloperComponent implements OnInit {
+export class CDSDetailDeveloperComponent implements OnInit, OnChanges {
 
   @Input() selectedChatbot: Chatbot
 
@@ -25,6 +25,7 @@ export class CDSDetailDeveloperComponent implements OnInit {
 
   public jwt: string;
   public tparams: any;
+  private loadedTokenForChatbotId: string;
 
   EXTERNAL_URL = EXTERNAL_URL
 
@@ -43,9 +44,24 @@ export class CDSDetailDeveloperComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    const chatbotId = changes.selectedChatbot?.currentValue?._id;
+    if (chatbotId && chatbotId !== this.loadedTokenForChatbotId) {
+      this.loadToken(chatbotId);
+    }
+  }
+
   generateToken(){
-    this.logger.log('[CDS-DETAIL-DEVELOPER] generateToken for chatbot', this.selectedChatbot._id)
-    this.faqKbService.getJWT(this.selectedChatbot._id).subscribe((data) => {
+    this.loadToken(this.selectedChatbot?._id);
+  }
+
+  private loadToken(chatbotId: string) {
+    if (!chatbotId) {
+      return;
+    }
+    this.loadedTokenForChatbotId = chatbotId;
+    this.logger.log('[CDS-DETAIL-DEVELOPER] generateToken for chatbot', chatbotId)
+    this.faqKbService.getJWT(chatbotId).subscribe((data) => {
       if(data && data['jwt']){
         this.jwt = data['jwt']
       }

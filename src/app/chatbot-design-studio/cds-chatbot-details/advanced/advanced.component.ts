@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
-import { ChangeBotLangModalComponent } from 'src/app/modals/change-bot-lang/change-bot-lang.component';
 import { Chatbot } from 'src/app/models/faq_kb-model';
 import { Project } from 'src/app/models/project-model';
 import { BotsBaseComponent } from 'src/app/components/bots/bots-base/bots-base.component';
@@ -22,10 +20,11 @@ export class CDSAdvancedComponent extends BotsBaseComponent implements OnInit {
   @Input() translationsMap: Map<string, string> = new Map();
 
   botDefaultSelectedLang: any;
+  selectedBotLanguage: string;
   private logger: LoggerService = LoggerInstance.getInstance();
+  private languageUpdateSeq = 0;
 
   constructor(
-    public dialog: MatDialog,
     private faqKbService: FaqKbService,
     private notify: NotifyService,
   ) {
@@ -41,46 +40,57 @@ export class CDSAdvancedComponent extends BotsBaseComponent implements OnInit {
   }
 
   destructureSelectedChatbot(selectedChatbot: Chatbot) {
+    if (!selectedChatbot) {
+      return;
+    }
     this.logger.log('[CDS-CHATBOT-DTLS] - BOT LANGUAGE ', selectedChatbot.language);
     if (selectedChatbot && selectedChatbot.language) {
-      this.botDefaultSelectedLang = this.botDefaultLanguages[this.getIndexOfbotDefaultLanguages(selectedChatbot.language)].name
+      this.setSelectedLanguage(selectedChatbot.language);
       this.logger.log('[CDS-CHATBOT-DTLS] BOT DEAFAULT SELECTED LANGUAGE ', this.botDefaultSelectedLang);
     }
   }
 
-  updateBotLanguage(){
-    this.logger.log('openDialog')
-    const dialogRef = this.dialog.open(ChangeBotLangModalComponent, {
-      width: '600px',
-      data: {
-        chatbot: this.selectedChatbot,
-        projectId: this.project._id
-      },
-    });
-    dialogRef.afterClosed().subscribe(langCode => {
-      this.logger.log(`Dialog result: ${langCode}`);
-      if (langCode !== 'close') {
-        this.botDefaultSelectedLang = this.botDefaultLanguages[this.getIndexOfbotDefaultLanguages(langCode)].name
-      }
-      this.updateChatbotLanguage(langCode)
-    })
+  setSelectedLanguage(langCode: string) {
+    const language = this.botDefaultLanguages.find(item => item.code === langCode);
+    this.selectedBotLanguage = langCode;
+    this.botDefaultSelectedLang = language ? language.name : langCode;
   }
 
+  onBotLanguageChange(language: { code?: string } | string) {
+    const langCode = typeof language === 'string' ? language : language?.code;
+    if (!langCode || langCode === this.selectedChatbot?.language) {
+      return;
+    }
+    this.updateChatbotLanguage(langCode);
+  }
 
   updateChatbotLanguage(langCode) {
+    if (!langCode || !this.selectedChatbot?._id) {
+      return;
+    }
+    const previousLanguage = this.selectedChatbot.language;
+    const requestSeq = ++this.languageUpdateSeq;
     this.faqKbService.updateFaqKbLanguage(this.selectedChatbot._id, langCode).subscribe({ next: (faqKb) => {
       this.logger.log('[CDS-CHATBOT-DTLS] EDIT BOT LANG - FAQ KB UPDATED ', faqKb);
       if (faqKb) {
       }
     }, error: (error) => {
+      if (requestSeq !== this.languageUpdateSeq) {
+        return;
+      }
       this.logger.error('[CDS-CHATBOT-DTLS] EDIT BOT LANG-  ERROR ', error);
       // =========== NOTIFY ERROR ===========
       this.notify.showWidgetStyleUpdateNotification(this.translationsMap.get('CDSSetting.UpdateBotError'), 4, 'report_problem');
+      this.setSelectedLanguage(previousLanguage);
 
     }, complete: () => {
+      if (requestSeq !== this.languageUpdateSeq) {
+        return;
+      }
       this.logger.log('[CDS-CHATBOT-DTLS] EDIT BOT LANG - * COMPLETE *');
       // =========== NOTIFY SUCCESS===========
       this.notify.showWidgetStyleUpdateNotification(this.translationsMap.get('CDSSetting.UpdateBotSuccess'), 2, 'done');
+      this.setSelectedLanguage(langCode);
       this.updateChatbot(this.selectedChatbot, langCode)
     }});
   }

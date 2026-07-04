@@ -68,7 +68,8 @@ export class CDSDetailCommunityComponent implements OnInit {
   ngOnInit(): void {
     this.logger.log('[CDS-DETAIL-COMMUNITY] onInit-->', this.selectedChatbot)
     if (this.selectedChatbot && this.selectedChatbot.tags) {
-      this.tagsList = this.selectedChatbot.tags
+      this.tagsList = this.normalizeTags(this.selectedChatbot.tags)
+      this.selectedChatbot.tags = this.tagsList
     }
     if (this.selectedChatbot && this.selectedChatbot.certifiedTags && this.selectedChatbot.certifiedTags.length > 0) {
       this.certifiedTag = this.selectedChatbot.certifiedTags[0]
@@ -133,11 +134,15 @@ export class CDSDetailCommunityComponent implements OnInit {
   // Tags 
   // --------------------------------------------------------------------------------
   createNewTag = (newTag: string) => {
-    this.logger.log("Create New TAG Clicked -> newTag: " + newTag)
-    var index = this.tagsList.findIndex(t => t.tag === newTag);
+    const tagName = this.normalizeTag(newTag).trim();
+    this.logger.log("Create New TAG Clicked -> newTag: " + tagName)
+    if (!tagName) {
+      return;
+    }
+    var index = this.tagsList.findIndex(t => this.normalizeTag(t) === tagName);
     if (index === -1) {
       this.logger.log("Create New TAG Clicked - Tag NOT exist")
-      this.tagsList.push(newTag)
+      this.tagsList.push(tagName)
       this.logger.log("Create New TAG Clicked - chatbot tag tagsList : ", this.tagsList)
 
       let self = this;
@@ -147,7 +152,7 @@ export class CDSDetailCommunityComponent implements OnInit {
         this.ngSelect.blur()
       }
 
-      self.selectedChatbot.tags = this.tagsList
+      self.selectedChatbot.tags = this.normalizeTags(this.tagsList)
       // self.updateChatbot(self.selectedChatbot)
 
     } else {
@@ -159,14 +164,33 @@ export class CDSDetailCommunityComponent implements OnInit {
   removeTag(tag: string) {
     // if (this.DISABLE_ADD_NOTE_AND_TAGS === false) {
     this.logger.log('[CDS-DETAIL-COMMUNITY] - REMOVE TAG - tag TO REMOVE: ', tag);
-    var index = this.tagsList.indexOf(tag);
+    const tagName = this.normalizeTag(tag);
+    var index = this.tagsList.findIndex(t => this.normalizeTag(t) === tagName);
     if (index !== -1) {
       this.tagsList.splice(index, 1);
     }
-    this.selectedChatbot.tags = this.tagsList
+    this.selectedChatbot.tags = this.normalizeTags(this.tagsList)
     // this.updateChatbot(this.selectedChatbot)
     this.logger.log('[CDS-DETAIL-COMMUNITY] -  REMOVE TAG - TAGS ARRAY AFTER SPLICE: ', this.tagsList);
 
+  }
+
+  getTagLabel(tag: any): string {
+    return this.normalizeTag(tag);
+  }
+
+  private normalizeTag(tag: any): string {
+    if (!tag) {
+      return '';
+    }
+    if (typeof tag === 'string') {
+      return tag;
+    }
+    return (tag.tag || tag.name || tag._id || '').toString();
+  }
+
+  private normalizeTags(tags: Array<any> = []): string[] {
+    return tags.map(tag => this.normalizeTag(tag).trim()).filter(tag => tag.length > 0);
   }
 
   // are you sure to publish on the community without your Personal information
@@ -344,6 +368,7 @@ export class CDSDetailCommunityComponent implements OnInit {
     if (!this.certifiedTag || !this.selectedChatbot.title || !this.selectedChatbot.short_description) {
       return
     }
+    this.selectedChatbot.tags = this.normalizeTags(this.tagsList)
     this.logger.log('[CDS-DETAIL-COMMUNITY] updateDataOnCommunity chatbot -->', this.selectedChatbot)
     this.faqKbService.updateChatbot(this.selectedChatbot).subscribe((chatbot) => {
       this.logger.log('[CDS-DETAIL-COMMUNITY] UPDATE CHATBOT DATA ON CMNTY RES ', chatbot)

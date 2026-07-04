@@ -169,7 +169,7 @@
                         <div class="cds-chatbot-tag-wpr" *ngFor="let tag of tagsList" role="button">
 
                             <div class="cds-chatbot-tag">
-                                {{ tag }}
+                                {{ getTagLabel(tag) }}
                             </div>
 
                             <div class="cds-chatbot-tag-delete-icon-wpr" (click)="removeTag(tag)">

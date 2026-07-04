@@ -41,6 +41,12 @@
             opacity: 0;
             position: absolute;
             color: var(--blu);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
         }
         
         &:hover{

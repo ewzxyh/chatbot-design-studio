@@ -3803,7 +3803,11 @@
   "SharePrototype": "Compartilhar protótipo com testadores",
   "CopyLink": "Copiar link de compartilhamento",
   "OpenLinkInNewTab": "Abrir link de compartilhamento",
-  "AreYouSureYouWantToRestore": "Are you sure you want to restore the Flow {{release_name}} to {{release_date}} version?",
-  "ThisOperationWillReplaceTheCurrentlyPublishedFlow": "This operation will replace the currently published Flow",
+  "AreYouSureYouWantToRestore": "Tem certeza de que deseja restaurar o fluxo {{release_name}} para a versão de {{release_date}}?",
+  "ThisOperationWillReplaceTheCurrentlyPublishedFlow": "Esta operação substituirá o fluxo publicado atualmente.",
+  "FlowSuccessfullyRestoredToVersion": "O fluxo foi restaurado para a versão de {{release_date}}.",
+  "NoComment": "Sem comentário",
+  "RestoredFrom": "Restaurado de",
+  "Administrator": "Administrador",
   "Globals": "Variáveis globais"
 }

@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { AppConfigService } from 'src/app/services/app-config';
 import { avatarPlaceholder, getColorBck } from 'src/chat21-core/utils/utils-user';
 import { TranslateService } from '@ngx-translate/core';
+import 'moment/locale/pt-br';
 
 
 
@@ -67,7 +68,7 @@ export class CdsPublishHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    moment.locale('en');
+    moment.locale('pt-br');
 
     this.imageStorageURL = ''
     const uploadEngine = this.appConfigService.getConfig().uploadEngine;
@@ -126,8 +127,9 @@ export class CdsPublishHistoryComponent implements OnInit {
 
             this.manageUserAvatar(release.publishedBy)
             this.logger.log('[CDS-PUBLISH-HISTORY] - GET BOT RELEASE HISTORY - release > publishedBy ', release.publishedBy);
-            const formattedDate = moment(release.publishedAt).locale('en').format('MMMM D, YYYY h:mm A')
+            const formattedDate = moment(release.publishedAt).locale('pt-br').format('D [de] MMMM [de] YYYY HH:mm')
             release['formattedDate'] = formattedDate
+            release['releaseNoteLabel'] = this.getReleaseNoteLabel(release.release_note)
             // this.logger.log('[CDS-PUBLISH-HISTORY] - GET BOT RELEASE HISTORY - release publishedAt  formattedDate', formattedDate);
 
           });
@@ -200,6 +202,27 @@ export class CdsPublishHistoryComponent implements OnInit {
       return `${this.imageStorageURL}images?path=uploads%2Fusers%2F${user._id}%2Fimages%2Fthumbnails_200_200-photo.jpg`;
     }
   }
+
+  getReleaseNoteLabel(releaseNote: any): string {
+    const note = releaseNote ? releaseNote.toString() : '';
+    if (!note || note === 'No comment') {
+      return this.translate.instant('NoComment');
+    }
+    if (note.startsWith('Restored from ')) {
+      return note.replace('Restored from', this.translate.instant('RestoredFrom'));
+    }
+    return note;
+  }
+
+  getPublishedByLabel(publishedBy: any): string {
+    if (!publishedBy) {
+      return '';
+    }
+    const firstName = publishedBy.firstname === 'Administrator'
+      ? this.translate.instant('Administrator')
+      : publishedBy.firstname;
+    return [firstName, publishedBy.lastname].filter(name => name && name !== ' ').join(' ');
+  }
   
   restoreRelease(release: Chatbot) {
     this.logger.log('[CDS-PUBLISH-HISTORY] - Restore release chatbot ', release);
@@ -210,7 +233,7 @@ export class CdsPublishHistoryComponent implements OnInit {
       title: this.translate.instant(('AreYouSureYouWantToRestore'), {release_name: release.name, release_date:release['formattedDate']}),
       text: this.translate.instant("ThisOperationWillReplaceTheCurrentlyPublishedFlow"),
       icon: "warning",
-      buttons: ["Cancel", 'Continue'],
+      buttons: [this.translate.instant('Cancel'), this.translate.instant('Continue')],
       dangerMode: false,
       className: "swal-restore"
     })
@@ -223,7 +246,7 @@ export class CdsPublishHistoryComponent implements OnInit {
             },
             error: (error) => {
 
-              swal('An error has occurred', {
+              swal(this.translate.instant('AnErrorHasOccurred'), {
                 icon: "error",
               });
               this.logger.error('[CDS-PUBLISH-HISTORY] publish ERROR ', error);
@@ -231,7 +254,7 @@ export class CdsPublishHistoryComponent implements OnInit {
             complete: () => {
               this.getReleaseHistory(this.selectedChatbot._id)
               this.logger.log('[CDS-PUBLISH-HISTORY] publish * COMPLETE *');
-              swal("Done!", `The Flow has been successfully restored to ${release['formattedDate']} version.`, {
+              swal(this.translate.instant('Done'), this.translate.instant('FlowSuccessfullyRestoredToVersion', { release_date: release['formattedDate'] }), {
                 icon: "success",
                 className: "swal-restore"
               }).then((okpressed) => {

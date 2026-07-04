@@ -30,7 +30,7 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
   defaultDepartmentId: string;
   support_group_id: string;
   public iframeVisibility: boolean = false;
-  public loading:boolean = true;
+  public loading:boolean = false;
   WIDGET_BASE_URL: string = '';
   widgetTestSiteUrl: SafeResourceUrl = null;
   private messageListener: (event: Event) => void;
@@ -69,7 +69,6 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
     this.selectedChatbot = this.dashboardService.selectedChatbot;
     this.defaultDepartmentId = this.dashboardService.defaultDepartment._id;
     this.logger.log('[CDS-PANEL-WIDGET] ngOnInit  ');
-    this.setIframeUrl()
   }
 
 
@@ -155,7 +154,11 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
   }
 
   startTest(){
-    this.iframeVisibility = !this.iframeVisibility
+    this.iframeVisibility = !this.iframeVisibility;
+    if (this.iframeVisibility) {
+      this.loading = true;
+      this.setIframeUrl();
+    }
   }
 
   ngOnDestroy() {

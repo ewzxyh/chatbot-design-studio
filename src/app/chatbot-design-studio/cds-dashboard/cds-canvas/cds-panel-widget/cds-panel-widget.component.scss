@@ -34,31 +34,19 @@
 
 #preloader .logo {
     display: block;
-    width: 109px;
-    height: 39px;
-    background-repeat: no-repeat;
-    background-image: url('/assets/img/tiledesk-logo.png');      
-    background-size: contain;
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e7edf6;
+    border-top-color: #1f96f3;
+    border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -20px 0 0 -55px;
-    -moz-transition:all 1s ease-in-out;
-    -webkit-transition:all 1s ease-in-out;
-    -o-transition:all 1s ease-in-out;
-    -ms-transition:all 1s ease-in-out;
-    transition:all 1s ease-in-out;
-    /* order: name, direction, duration, iteration-count, timing-function */
-    -moz-animation:blink normal 2s infinite ease-in-out; /* Firefox */
-    -webkit-animation:blink normal 2s infinite ease-in-out; /* Webkit */
-    -ms-animation:blink normal 2s infinite ease-in-out; /* IE */
-    animation:blink normal 2s infinite ease-in-out; /* Opera and prob css3 final iteration */
+    margin: -16px 0 0 -16px;
+    animation: spin 800ms linear infinite;
 }
 
-@-moz-keyframes blink {0%{opacity:1;} 50%{opacity:0;} 100%{opacity:1;}} /* Firefox */
-@-webkit-keyframes blink {0%{opacity:1;} 50%{opacity:0;} 100%{opacity:1;}} /* Webkit */
-@-ms-keyframes blink {0%{opacity:1;} 50%{opacity:0;} 100%{opacity:1;}} /* IE */
-@keyframes blink {0%{opacity:1;} 50%{opacity:0;} 100%{opacity:1;}} /* Opera and prob css3 final iteration */
+@keyframes spin { to { transform: rotate(360deg); } }
 
 
 .widget-wrp{

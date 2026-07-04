@@ -22,7 +22,8 @@
                 </button>
             </div>
             <!-- (load)="onLoaded($event) -->
-           <iframe allowfullscreen [style.display]="iframeVisibility? 'block':'none'"
+           <iframe *ngIf="iframeVisibility && widgetTestSiteUrl"
+                allowfullscreen
                 #widgetIframe
                 id="widgetIframe"
                 allow="microphone"

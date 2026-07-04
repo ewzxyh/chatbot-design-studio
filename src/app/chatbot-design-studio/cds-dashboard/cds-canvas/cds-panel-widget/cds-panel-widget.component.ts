@@ -21,7 +21,7 @@ import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service
 })
 export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
 
-  @ViewChild('widgetIframe', {static:true}) widgetIframe:ElementRef;
+  @ViewChild('widgetIframe') widgetIframe?: ElementRef<HTMLIFrameElement>;
   @Input() isPanelVisible: boolean = false;
   @Output() newConversation = new EventEmitter();
   intentName: string;
@@ -33,7 +33,7 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
   public loading:boolean = false;
   WIDGET_BASE_URL: string = '';
   widgetTestSiteUrl: SafeResourceUrl = null;
-  private messageListener: (event: Event) => void;
+  private messageListener?: (event: Event) => void;
   private logger: LoggerService = LoggerInstance.getInstance();
 
   constructor( 
@@ -60,7 +60,7 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
     this.intentService.testIntent.subscribe((intent: Intent) => {
       if(intent && intent.intent_display_name){
         this.intentName = intent.intent_display_name;
-        this.widgetIframe.nativeElement.contentWindow?.postMessage(
+        this.widgetIframe?.nativeElement?.contentWindow?.postMessage(
           {action: 'restart', intentName: this.intentName}, "*");
       }
     })
@@ -84,7 +84,7 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
                               "&tiledesk_preChatForm=false" +
                               '&tiledesk_fullscreenMode=true&td_draft=true'
     if(this.intentName && this.intentName !== '') 
-      url += '&tiledesk_hiddenMessage=' + this.intentName            
+      url += '&tiledesk_hiddenMessage=' + encodeURIComponent(this.intentName)
     this.widgetTestSiteUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.logger.log('[CDS-PANEL-WIDGET] setIframeUrl ----------------- DA QUI ---------------  ');
   }
@@ -98,6 +98,8 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
      *  - get intent name from message attributes
      *  - set live active intent and start animation
      */
+
+    this.removeMessageListener();
 
     this.messageListener = (event: Event) => {
       const eventData = (event as MessageEvent).data;
@@ -158,11 +160,22 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
     if (this.iframeVisibility) {
       this.loading = true;
       this.setIframeUrl();
+    } else {
+      this.loading = false;
+      this.widgetTestSiteUrl = null;
+      this.removeMessageListener();
     }
   }
 
   ngOnDestroy() {
-    window.removeEventListener('message', this.messageListener);
+    this.removeMessageListener();
+  }
+
+  private removeMessageListener() {
+    if (this.messageListener) {
+      window.removeEventListener('message', this.messageListener);
+      this.messageListener = undefined;
+    }
   }
 
   resetLogService(){

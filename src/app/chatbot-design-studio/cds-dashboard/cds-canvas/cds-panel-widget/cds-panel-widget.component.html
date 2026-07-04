@@ -1,5 +1,5 @@
 <div id="panel-tab">
-    <div id="preloader" *ngIf="loading">
+    <div id="preloader" *ngIf="iframeVisibility && loading">
         <div class="logo"></div>
     </div>
 
@@ -28,7 +28,8 @@
                 allow="microphone"
                 style= "border:none;"
                 width = "100%" height = "100%"
-                [src]="widgetTestSiteUrl">
+                [src]="widgetTestSiteUrl"
+                (load)="onLoaded($event)">
             </iframe>
         </div>
     </div>

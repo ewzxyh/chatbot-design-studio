@@ -73,16 +73,6 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
   }
 
 
-  ngAfterViewInit() {
-    const iframe = document.querySelector('iframe');
-    if (iframe) {
-      iframe.addEventListener('load', (event) => {
-        this.logger.log('[CDS-PANEL-WIDGET] onLoaded  ');
-        this.onLoaded(event);
-      });
-    }
-  }
-
   setIframeUrl(){
     this.WIDGET_BASE_URL = this.appConfigService.getConfig().widgetBaseUrl;
     const testItOutUrl = this.WIDGET_BASE_URL + "assets/twp" + '/chatbot-panel.html'

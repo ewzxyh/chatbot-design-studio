@@ -67,14 +67,30 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
 
     this.projectID = this.dashboardService.projectID;
     this.selectedChatbot = this.dashboardService.selectedChatbot;
-    this.defaultDepartmentId = this.dashboardService.defaultDepartment._id;
+    this.defaultDepartmentId = this.dashboardService.defaultDepartment?._id;
     this.logger.log('[CDS-PANEL-WIDGET] ngOnInit  ');
   }
 
 
-  setIframeUrl(){
+  setIframeUrl(): boolean {
     this.WIDGET_BASE_URL = this.appConfigService.getConfig().widgetBaseUrl;
-    const testItOutUrl = this.WIDGET_BASE_URL + "assets/twp" + '/chatbot-panel.html'
+    this.projectID = this.dashboardService.projectID;
+    this.selectedChatbot = this.dashboardService.selectedChatbot;
+    this.defaultDepartmentId = this.dashboardService.defaultDepartment?._id;
+
+    if (!this.WIDGET_BASE_URL || !this.projectID || !this.selectedChatbot?._id || !this.defaultDepartmentId) {
+      this.widgetTestSiteUrl = null;
+      this.logger.error('[CDS-PANEL-WIDGET] Missing widget test data', {
+        widgetBaseUrl: this.WIDGET_BASE_URL,
+        projectID: this.projectID,
+        chatbotID: this.selectedChatbot?._id,
+        defaultDepartmentId: this.defaultDepartmentId
+      });
+      return false;
+    }
+
+    const widgetBaseUrl = this.WIDGET_BASE_URL.endsWith('/') ? this.WIDGET_BASE_URL : `${this.WIDGET_BASE_URL}/`;
+    const testItOutUrl = widgetBaseUrl + "assets/twp" + '/chatbot-panel.html'
     // const testItOutUrl = "https://widget.tiledesk.com/v6/5.0.71/assets/twp"+ '/chatbot-panel.html'
     // const testItOutUrl = 'http://localhost:4203/assets/twp'+ '/chatbot-panel.html'
     let url = testItOutUrl + '?tiledesk_projectid=' + this.projectID + 
@@ -87,6 +103,7 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
       url += '&tiledesk_hiddenMessage=' + encodeURIComponent(this.intentName)
     this.widgetTestSiteUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.logger.log('[CDS-PANEL-WIDGET] setIframeUrl ----------------- DA QUI ---------------  ');
+    return true;
   }
 
   onLoaded(event){
@@ -156,15 +173,21 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
   }
 
   startTest(){
-    this.iframeVisibility = !this.iframeVisibility;
     if (this.iframeVisibility) {
-      this.loading = true;
-      this.setIframeUrl();
-    } else {
+      this.iframeVisibility = false;
       this.loading = false;
       this.widgetTestSiteUrl = null;
       this.removeMessageListener();
+      return;
     }
+
+    if (!this.setIframeUrl()) {
+      this.loading = false;
+      return;
+    }
+
+    this.loading = true;
+    this.iframeVisibility = true;
   }
 
   ngOnDestroy() {

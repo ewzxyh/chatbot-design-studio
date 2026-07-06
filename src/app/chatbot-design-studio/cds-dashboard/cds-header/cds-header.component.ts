@@ -318,6 +318,8 @@ export class CdsHeaderComponent implements OnInit {
                                 "&tiledesk_restartConversation=false" +
                                 "&tiledesk_widgetTitle="+ encodeURIComponent(this.selectedChatbot.name) +
                                 "&tiledesk_preChatForm=false" +
+                                "&tiledesk_isOpen=true" +
+                                "&tiledesk_widget_v=" + Date.now() +
                                 "&td_draft=true"
           navigator.clipboard.writeText(testItOutUrl)
           this.notify.showWidgetStyleUpdateNotification(this.translationsMap.get('CDSHeader.LinkCopiedToClipboard'), 2, 'done')
@@ -332,6 +334,8 @@ export class CdsHeaderComponent implements OnInit {
                               "&tiledesk_restartConversation=false" +
                               "&tiledesk_widgetTitle="+ encodeURIComponent(this.selectedChatbot.name) +
                               "&tiledesk_preChatForm=false" +
+                              "&tiledesk_isOpen=true" +
+                              "&tiledesk_widget_v=" + Date.now() +
                               "&td_draft=true"
         window.open(testItOutUrl, '_blank')
         }

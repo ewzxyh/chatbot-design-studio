@@ -98,7 +98,8 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
                               "&tiledesk_departmentID=" + this.defaultDepartmentId + 
                               "&tiledesk_widgetTitle="+ encodeURIComponent(this.selectedChatbot.name) +
                               "&tiledesk_preChatForm=false" +
-                              '&tiledesk_fullscreenMode=true&td_draft=true'
+                              '&tiledesk_fullscreenMode=true&tiledesk_isOpen=true&td_draft=true' +
+                              '&tiledesk_widget_v=' + Date.now()
     if(this.intentName && this.intentName !== '') 
       url += '&tiledesk_hiddenMessage=' + encodeURIComponent(this.intentName)
     this.widgetTestSiteUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);

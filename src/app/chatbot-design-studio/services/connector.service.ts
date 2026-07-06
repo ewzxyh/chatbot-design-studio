@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TiledeskConnectors } from 'src/assets/js/tiledesk-connectors.js';
+import { TiledeskConnectors } from 'src/assets/js/chatcase-connectors.js';
 import { TYPE_BUTTON, isElementOnTheStage, generateShortUID, getOpacityFromRgba, getColorFromRgba } from '../utils';
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';

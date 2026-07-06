@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TiledeskStage } from 'src/assets/js/tiledesk-stage.js';
+import { TiledeskStage } from 'src/assets/js/chatcase-stage.js';
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
 import { DEFAULT_ALPHA_CONNECTORS, CDS_ADD_ACTION_MENU_WIDTH, CDS_SIDEBAR_WIDTH, STAGE_SETTINGS, scaleAndcenterStageOnCenterPosition } from '../utils';

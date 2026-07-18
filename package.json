@@ -28,6 +28,7 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "@ctrl/ngx-emoji-mart": "^7.1.0",
+    "@dagrejs/dagre": "^1.1.5",
     "@ncstate/sat-popover": "^10.0.0",
     "@ng-select/ng-select": "^9.0.2",
     "@ngx-translate/core": "^14.0.0",

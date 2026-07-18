@@ -640,6 +640,10 @@ export class CdsCanvasComponent implements OnInit, AfterViewInit{
     return this.intentService.getIntentPosition(intentId);
   }
 
+  trackIntentById(_index: number, intent: Intent): string {
+    return intent.intent_id;
+  }
+
   /** SET DRAG STAGE AND CREATE CONNECTORS *
   * set drag and listner on intents, 
   * create connectors

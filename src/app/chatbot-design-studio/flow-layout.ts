@@ -56,10 +56,10 @@ export const calculateFlowLayout = (
 
   if (disconnectedNodes.length > 0) {
     const disconnectedOrigin = {
-      x: origin.x,
-      y: origin.y + mainLayout.height + DISCONNECTED_AREA_GAP
+      x: origin.x + mainLayout.width + DISCONNECTED_AREA_GAP,
+      y: origin.y
     };
-    const disconnectedLayout = layoutGroup(disconnectedNodes, validEdges, disconnectedOrigin);
+    const disconnectedLayout = layoutGrid(disconnectedNodes, disconnectedOrigin);
     Object.assign(positions, disconnectedLayout.positions);
   }
 
@@ -127,6 +127,32 @@ const getOrigin = (nodes: FlowLayoutNode[]): FlowLayoutPosition => ({
   x: Math.min(...nodes.map((node) => node.position?.x ?? 0)),
   y: Math.min(...nodes.map((node) => node.position?.y ?? 0))
 });
+
+const layoutGrid = (
+  nodes: FlowLayoutNode[],
+  origin: FlowLayoutPosition
+): GroupLayoutResult => {
+  const rowCount = Math.min(6, Math.ceil(Math.sqrt(nodes.length)));
+  const columnCount = Math.ceil(nodes.length / rowCount);
+  const maxWidth = Math.max(...nodes.map((node) => node.width));
+  const maxHeight = Math.max(...nodes.map((node) => node.height));
+  const positions: Record<string, FlowLayoutPosition> = {};
+
+  for (const [index, node] of nodes.entries()) {
+    const column = Math.floor(index / rowCount);
+    const row = index % rowCount;
+    positions[node.id] = {
+      x: origin.x + column * (maxWidth + HORIZONTAL_GAP),
+      y: origin.y + row * (maxHeight + VERTICAL_GAP)
+    };
+  }
+
+  return {
+    positions,
+    width: columnCount * maxWidth + Math.max(0, columnCount - 1) * HORIZONTAL_GAP,
+    height: rowCount * maxHeight + Math.max(0, rowCount - 1) * VERTICAL_GAP
+  };
+};
 
 const layoutGroup = (
   nodes: FlowLayoutNode[],

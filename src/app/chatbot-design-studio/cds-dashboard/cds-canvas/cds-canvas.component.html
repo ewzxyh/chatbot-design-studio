@@ -41,7 +41,7 @@
 
     <div #drawer_of_items_to_zoom_and_drag id="tds_drawer" class="tds-drag-drawer box-right-content">
        
-        <cds-intent *ngFor="let intent of listOfIntents"
+        <cds-intent *ngFor="let intent of listOfIntents; trackBy: trackIntentById"
             [id]="intent.intent_id"
             [IS_OPEN_PANEL_INTENT_DETAIL]="IS_OPEN_PANEL_INTENT_DETAIL"
             class="panel-intent tds_input_block" 

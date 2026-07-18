@@ -27,8 +27,14 @@ describe('calculateFlowLayout', () => {
     expect(result.unlinkedCount).toBe(0);
   });
 
-  it('places blocks outside the main flow in a separate area', () => {
-    const nodes = [node('start'), node('main'), node('detached-a'), node('detached-b'), node('isolated')];
+  it('places blocks outside the main flow in a grid to its right', () => {
+    const nodes = [
+      node('start'),
+      node('main'),
+      node('detached-a'),
+      node('detached-b'),
+      node('isolated')
+    ];
     const result = calculateFlowLayout(
       nodes,
       [
@@ -38,11 +44,32 @@ describe('calculateFlowLayout', () => {
       'start'
     );
 
-    const mainBottom = Math.max(result.positions.start.y + 120, result.positions.main.y + 120);
-    expect(result.positions['detached-a'].y).toBeGreaterThan(mainBottom);
-    expect(result.positions.isolated.y).toBeGreaterThan(mainBottom);
+    const mainRight = Math.max(result.positions.start.x + 240, result.positions.main.x + 240);
+    expect(result.positions['detached-a'].x).toBeGreaterThan(mainRight);
+    expect(result.positions.isolated.x).toBeGreaterThan(mainRight);
+    expect(new Set([
+      result.positions['detached-a'].y,
+      result.positions['detached-b'].y,
+      result.positions.isolated.y
+    ]).size).toBe(2);
     expect(result.disconnectedCount).toBe(3);
     expect(result.unlinkedCount).toBe(1);
+  });
+
+  it('caps a large disconnected grid at six rows', () => {
+    const detachedNodes = Array.from({ length: 37 }, (_, index) => node(`detached-${index}`));
+    const result = calculateFlowLayout(
+      [node('start'), ...detachedNodes],
+      [],
+      'start'
+    );
+    const detachedPositions = detachedNodes.map(({ id }) => result.positions[id]);
+
+    expect(new Set(detachedPositions.map(({ y }) => y)).size).toBe(6);
+    expect(new Set(detachedPositions.map(({ x }) => x)).size).toBe(7);
+    expect(
+      detachedPositions.every(({ x }) => x > result.positions.start.x + 240)
+    ).toBeTrue();
   });
 
   it('ignores duplicate, missing and self-referencing edges', () => {

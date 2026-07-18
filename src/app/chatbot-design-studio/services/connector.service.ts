@@ -60,6 +60,34 @@ export class ConnectorService {
     return this.mapOfConnectors;
   }
 
+  public getIntentConnections(intents: any[]): Array<{ from: string; to: string }> {
+    const existingIntentIds = new Set(intents.map((intent) => intent.intent_id));
+    const connections = new Map<string, { from: string; to: string }>();
+
+    const exploreObject = (obj: any, fromIntentId: string): void => {
+      if (typeof obj !== 'object' || obj === null) {
+        return;
+      }
+
+      for (const key in obj) {
+        const value = obj[key];
+        if (typeof value === 'string' && value.startsWith('#') && value !== '#') {
+          const toIntentId = value.replace('#', '');
+          if (toIntentId !== fromIntentId && existingIntentIds.has(toIntentId)) {
+            connections.set(`${fromIntentId}/${toIntentId}`, {
+              from: fromIntentId,
+              to: toIntentId
+            });
+          }
+        }
+        exploreObject(value, fromIntentId);
+      }
+    };
+
+    intents.forEach((intent) => exploreObject(intent, intent.intent_id));
+    return Array.from(connections.values());
+  }
+
   /**
    * createConnectorDraft
    * @param detail 

@@ -3,7 +3,7 @@
 - [x] Auditar canvas, conectores, persistencia e historico existentes.
 - [x] Implementar e testar o motor hierarquico de layout.
 - [ ] Integrar o comando ao canvas e a barra de ferramentas.
-- [ ] Persistir todas as posicoes em uma unica operacao com undo/redo unico.
+- [x] Persistir todas as posicoes em uma unica operacao com undo/redo unico.
 - [ ] Atualizar conectores e informar blocos fora do fluxo principal.
 - [ ] Validar build e testes.
 

@@ -1573,6 +1573,79 @@ export class IntentService {
     this.opsUpdate(this.payload);
   }
 
+  public async updateIntentPositions(
+    positions: Record<string, { x: number; y: number }>
+  ): Promise<string[]> {
+    const previousIntents = JSON.parse(JSON.stringify(this.listOfIntents));
+    const previousUndo = [...this.arrayUNDO];
+    const previousRedo = [...this.arrayREDO];
+    const previousOperationsUndo = this.operationsUndo;
+    const previousOperationsRedo = this.operationsRedo;
+    const previousPayload = this.payload;
+    const operationsUndo = [];
+    const operationsRedo = [];
+    const changedIntentIds = [];
+
+    const updatedIntents = this.listOfIntents.map((intent) => {
+      const position = positions[intent.intent_id];
+      if (!position) {
+        return intent;
+      }
+
+      const currentPosition = intent.attributes?.position;
+      if (currentPosition?.x === position.x && currentPosition?.y === position.y) {
+        return intent;
+      }
+
+      const previousIntent = JSON.parse(JSON.stringify(intent));
+      const updatedIntent = JSON.parse(JSON.stringify(intent));
+      updatedIntent.attributes = updatedIntent.attributes || {};
+      updatedIntent.attributes.position = { x: position.x, y: position.y };
+
+      operationsUndo.push({ type: 'put', intent: previousIntent });
+      operationsRedo.push({ type: 'put', intent: JSON.parse(JSON.stringify(updatedIntent)) });
+      changedIntentIds.push(intent.intent_id);
+      return updatedIntent;
+    });
+
+    if (changedIntentIds.length === 0) {
+      return [];
+    }
+
+    this.listOfIntents = updatedIntents;
+    this.intentSelected = this.intentSelected
+      ? this.listOfIntents.find((intent) => intent.intent_id === this.intentSelected.intent_id)
+      : this.intentSelected;
+    this.operationsUndo = operationsUndo;
+    this.operationsRedo = operationsRedo;
+    this.payload = {
+      id_faq_kb: operationsRedo[0].intent.id_faq_kb,
+      operations: operationsRedo
+    };
+    this.arrayUNDO.push({ undo: operationsUndo, redo: operationsRedo });
+    this.arrayREDO = [];
+    this.setBehaviorUndoRedo();
+    this.refreshIntents();
+
+    try {
+      await this.opsUpdate(this.payload);
+      return changedIntentIds;
+    } catch (error) {
+      this.listOfIntents = previousIntents;
+      this.intentSelected = this.intentSelected
+        ? this.listOfIntents.find((intent) => intent.intent_id === this.intentSelected.intent_id)
+        : this.intentSelected;
+      this.arrayUNDO = previousUndo;
+      this.arrayREDO = previousRedo;
+      this.operationsUndo = previousOperationsUndo;
+      this.operationsRedo = previousOperationsRedo;
+      this.payload = previousPayload;
+      this.setBehaviorUndoRedo();
+      this.refreshIntents();
+      throw error;
+    }
+  }
+
   /** */
   public async saveNewIntent(intent: Intent, nowIntent: Intent, prevIntent:Intent){
     this.logger.log('[INTENT SERVICE] -> addIntentNew, ', intent, nowIntent, prevIntent);

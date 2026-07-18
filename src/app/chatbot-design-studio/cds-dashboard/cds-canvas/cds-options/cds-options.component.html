@@ -62,6 +62,20 @@
         </div>
     </div>
 
+    <div size="4" class="cds-elements">
+        <button
+            type="button"
+            class="cds-box-button cds-organize-button"
+            [matTooltip]="organizeFlowTooltip"
+            [attr.aria-label]="organizeFlowTooltip"
+            (click)="onOptionClick(OPTIONS.ORGANIZE)">
+            <span class="box-img">
+                <mat-icon class="icon" svgIcon="assets/images/actions_category/flow.svg" aria-hidden="true"></mat-icon>
+            </span>
+            <span *ngIf="unlinkedBlockCount > 0" class="cds-count-badge">{{ unlinkedBlockCount }}</span>
+        </button>
+    </div>
+
     <div size="4" class="cds-elements" mat-button>
         <!-- CENTER -->
         <div class="cds-element" (click)="onOptionClick(OPTIONS.CENTER)" #divEvent>

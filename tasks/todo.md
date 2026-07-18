@@ -2,10 +2,10 @@
 
 - [x] Auditar canvas, conectores, persistencia e historico existentes.
 - [x] Implementar e testar o motor hierarquico de layout.
-- [ ] Integrar o comando ao canvas e a barra de ferramentas.
+- [x] Integrar o comando ao canvas e a barra de ferramentas.
 - [x] Persistir todas as posicoes em uma unica operacao com undo/redo unico.
-- [ ] Atualizar conectores e informar blocos fora do fluxo principal.
-- [ ] Validar build e testes.
+- [x] Atualizar conectores e informar blocos fora do fluxo principal.
+- [x] Validar build e testes.
 
 ## Criterios de aceite
 
@@ -17,4 +17,6 @@
 
 ## Revisao
 
-Pendente.
+- `npm run build`: concluido sem erros; permanecem apenas avisos legados de budget SCSS e Firebase CommonJS.
+- Motor Dagre validado isoladamente com fluxo principal, bloco orfao, contagem de desconectados e ausencia de sobreposicao.
+- A execucao segmentada pelo Karma continua impedida por specs legadas globais que o Angular compila mesmo com `--include`.

@@ -11,6 +11,8 @@ export class CdsOptionsComponent implements OnInit {
   @ViewChild('alphaInput') alphaInput!: ElementRef;
   @Input() id_faq_kb: any;
   @Input() stateUndoRedo: any;
+  @Input() disconnectedBlockCount = 0;
+  @Input() unlinkedBlockCount = 0;
   @Output() onOptionClicked = new EventEmitter<{ option: OPTIONS; alpha?: any }>();
 
   OPTIONS = OPTIONS;
@@ -48,6 +50,19 @@ export class CdsOptionsComponent implements OnInit {
 
   onOptionClick(option){
     this.onOptionClicked.emit({option: option});
+  }
+
+  get organizeFlowTooltip(): string {
+    const details = [];
+    if (this.disconnectedBlockCount > 0) {
+      details.push(`${this.disconnectedBlockCount} fora do fluxo principal`);
+    }
+    if (this.unlinkedBlockCount > 0) {
+      details.push(`${this.unlinkedBlockCount} sem ligação`);
+    }
+    return details.length > 0
+      ? `Organizar fluxo · ${details.join(' · ')}`
+      : 'Organizar fluxo';
   }
 
   onTogleAlphaConnectorsMenu(){

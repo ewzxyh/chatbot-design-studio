@@ -18,6 +18,7 @@ import { Button, Action} from 'src/app/models/action-model';
 // UTILS //
 import { INTENT_COLORS, RESERVED_INTENT_NAMES, TYPE_INTENT_ELEMENT, TYPE_OF_MENU, INTENT_TEMP_ID, OPTIONS, STAGE_SETTINGS, TYPE_INTENT_NAME } from '../../utils';
 import { LOGOS_ITEMS } from './../../utils-resources';
+import { calculateFlowLayout } from '../../flow-layout';
 
 
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
@@ -29,6 +30,9 @@ import { storage } from 'firebase';
 import { LogService } from 'src/app/services/log.service';
 import { WebhookService } from '../../services/webhook-service.service';
 import { Chatbot } from 'src/app/models/faq_kb-model';
+
+const DEFAULT_INTENT_WIDTH = 264;
+const DEFAULT_INTENT_HEIGHT = 180;
 
 // const swal = require('sweetalert');
 
@@ -123,6 +127,8 @@ export class CdsCanvasComponent implements OnInit, AfterViewInit{
   /** panel options */
   private subscriptionUndoRedo: Subscription;
   stateUndoRedo: any = {undo:false, redo: false};
+  disconnectedBlockCount = 0;
+  unlinkedBlockCount = 0;
 
   /** panel connector */
   IS_OPEN_PANEL_CONNECTOR_MENU: boolean = false;
@@ -1445,6 +1451,10 @@ export class CdsCanvasComponent implements OnInit, AfterViewInit{
         await this.stageService.changeScale(this.id_faq_kb, 'out');
         break;
       }
+      case OPTIONS.ORGANIZE: {
+        await this.organizeFlow();
+        break;
+      }
       case OPTIONS.CENTER: {
         await this.stageService.scaleAndCenter(this.id_faq_kb, this.listOfIntents);
         break;
@@ -1464,6 +1474,42 @@ export class CdsCanvasComponent implements OnInit, AfterViewInit{
       }
     }
   } 
+
+  private async organizeFlow(): Promise<void> {
+    if (this.listOfIntents.length === 0) {
+      return;
+    }
+
+    const nodes = this.listOfIntents.map((intent) => {
+      const element = document.getElementById(intent.intent_id);
+      return {
+        id: intent.intent_id,
+        width: element?.offsetWidth || DEFAULT_INTENT_WIDTH,
+        height: element?.offsetHeight || DEFAULT_INTENT_HEIGHT,
+        position: this.getIntentPosition(intent.intent_id)
+      };
+    });
+    const edges = this.connectorService.getIntentConnections(this.listOfIntents);
+    const rootId = this.listOfIntents.find(
+      (intent) => intent.intent_display_name === TYPE_INTENT_NAME.START
+    )?.intent_id;
+    const layout = calculateFlowLayout(nodes, edges, rootId);
+    const changedIntentIds = await this.intentService.updateIntentPositions(layout.positions);
+
+    this.disconnectedBlockCount = layout.disconnectedCount;
+    this.unlinkedBlockCount = layout.unlinkedCount;
+    this.changeDetectorRef.detectChanges();
+
+    requestAnimationFrame(() => {
+      for (const intentId of changedIntentIds) {
+        const element = document.getElementById(intentId);
+        const position = layout.positions[intentId];
+        if (element && position) {
+          this.connectorService.moved(element, position.x, position.y);
+        }
+      }
+    });
+  }
 
 
   // --------------------------------------------------------- // 

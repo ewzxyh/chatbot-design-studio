@@ -43,6 +43,32 @@
     background-color: var(--gray-02);
 }
 
+.cds-organize-button {
+    position: relative;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+}
+
+.cds-count-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    border-radius: 8px;
+    background: var(--blu);
+    color: white;
+    font-size: 10px;
+    line-height: 16px;
+    box-sizing: border-box;
+}
+
 .box-img {
     transition: opacity 0.15s ease 0s, background-color 0.15s ease 0s, color 0.15s ease 0s, transform 0.15s ease 0s;
     box-sizing: content-box;

@@ -8,6 +8,7 @@
 - [x] Validar build e testes.
 - [x] Organizar blocos desconectados em grid adaptativo a direita do fluxo.
 - [x] Preservar o arraste dos blocos depois da organizacao.
+- [x] Normalizar o zoom por roda e limitar saltos de escala.
 
 ## Criterios de aceite
 
@@ -28,3 +29,4 @@
 - `npm run build`: concluido sem erros; permanecem apenas avisos legados de budget SCSS e Firebase CommonJS.
 - Motor Dagre validado isoladamente com fluxo principal, bloco orfao, contagem de desconectados e ausencia de sobreposicao.
 - A execucao segmentada pelo Karma continua impedida por specs legadas globais que o Angular compila mesmo com `--include`.
+- O zoom pela roda limita cada evento a `0.1`, mantendo deltas menores de touchpad proporcionais.

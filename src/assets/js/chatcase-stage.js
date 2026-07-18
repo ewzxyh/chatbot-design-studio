@@ -97,7 +97,7 @@ export class TiledeskStage {
             zoom_point.y = event.pageY - this.drawer.offsetTop-originRec.y;
             zoom_target.x = (zoom_point.x - this.tx)/this.scale;
             zoom_target.y = (zoom_point.y - this.ty)/this.scale;
-            this.scale += dy * -0.01;
+            this.scale += Math.max(-0.1, Math.min(0.1, dy * -0.001));
             // Restrict scale
             this.scale = Math.min(Math.max(0.125, this.scale), 4);
             this.tx = -zoom_target.x * this.scale + zoom_point.x
@@ -398,6 +398,6 @@ export class TiledeskStage {
         } else {
             return false;
         }
-    }  
-  
-}  
+    }
+
+}

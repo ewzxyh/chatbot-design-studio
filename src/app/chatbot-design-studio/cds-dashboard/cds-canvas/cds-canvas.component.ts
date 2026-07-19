@@ -1676,6 +1676,11 @@ export class CdsCanvasComponent implements OnInit, AfterViewInit{
 
   public onNewConversation(request_id){
     this.logger.log('[CDS-CANVAS] onNewConversation:: ',this.elementIntentSelected, this.logService.request_id, request_id);
+    const normalizedRequestId = typeof request_id === 'string' ? request_id.trim() : '';
+    if (!normalizedRequestId || normalizedRequestId === 'null' || normalizedRequestId === 'undefined') {
+      return;
+    }
+    request_id = normalizedRequestId;
     if(this.logService.request_id !== request_id){
       // const support_group_id = message.recipient?message.recipient:null;
       // const projectId = message.attributes?.projectId?message.attributes?.projectId:null;

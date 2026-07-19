@@ -373,22 +373,21 @@ export class CdsHeaderComponent implements OnInit {
 
 
   async onOpenTestItOut(){
-    let request_id: string | Promise<void>;
-    this.logService.initialize(null); 
     if(this.isWebhook){
       this.logger.log("[cds-header] onOpenTestItOut: isWebhook");
-      request_id = await this.webhookStarterLog();
-    } else {
-      request_id = this.logService.request_id;
+      const request_id = await this.webhookStarterLog();
+      if (!request_id) {
+        return;
+      }
+      this.logService.initialize(request_id);
+      const tokenResp = await this.getToken(request_id);
+      if (!tokenResp) {
+        this.logger.warn("[CDS-header] Token non ottenuto");
+        return;
+      }
+      const mqtt_token = tokenResp.token || null;
+      this.logService.starterLog(mqtt_token, tokenResp.request_id || request_id);
     }
-    const tokenResp = await this.getToken(request_id);
-    if (!tokenResp) {
-      this.logger.warn("[CDS-header] Token non ottenuto");
-      return;
-    }
-    const mqtt_token = tokenResp.token || null;
-    request_id = tokenResp.request_id || null;
-    this.logService.starterLog(mqtt_token, request_id);
     this.openTestSiteInPopupWindow();
     this.isPlaying = true;
   }

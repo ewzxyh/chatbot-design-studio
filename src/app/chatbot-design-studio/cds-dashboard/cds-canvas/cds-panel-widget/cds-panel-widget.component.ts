@@ -124,12 +124,19 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
       this.logger.log('[CDS-PANEL-WIDGET] messageListener ', event);
       if(eventData?.source?.includes('widget') && eventData.event === 'onNewConversation'){
         this.logger.log('[CDS-PANEL-WIDGET] OPEN NEW CONVERSATION ', eventData);
-        const conversation_id = eventData?.data?.conversation_id;
-        this.newConversation.emit(conversation_id);
+        const conversation_id = this.normalizeRequestId(eventData?.data?.conversation_id);
+        if (conversation_id) {
+          this.support_group_id = null;
+          this.newConversation.emit(conversation_id);
+        }
       } else if(eventData?.source?.includes('widget')){
         let message = eventData?.data?.message;
         this.logger.log('[CDS-PANEL-WIDGET] NEW MESSAGE ', message, this.support_group_id);
         if(message && message.status>0){
+          const request_id = this.normalizeRequestId(message.recipient);
+          if (request_id) {
+            this.newConversation.emit(request_id);
+          }
           if(!this.support_group_id){
             this.initLogStaticServices(message);
           }
@@ -200,6 +207,19 @@ export class CdsPanelWidgetComponent implements OnInit, OnDestroy {
       window.removeEventListener('message', this.messageListener);
       this.messageListener = undefined;
     }
+  }
+
+  private normalizeRequestId(requestId: unknown): string | null {
+    if (typeof requestId !== 'string') {
+      return null;
+    }
+
+    const normalizedRequestId = requestId.trim();
+    if (!normalizedRequestId || normalizedRequestId === 'null' || normalizedRequestId === 'undefined') {
+      return null;
+    }
+
+    return normalizedRequestId;
   }
 
   resetLogService(){

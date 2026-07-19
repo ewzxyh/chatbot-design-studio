@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
 import { LOG_LEVELS } from 'src/app/chatbot-design-studio/utils';
 import { LogService } from 'src/app/services/log.service';
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
@@ -17,15 +17,12 @@ import { TYPE_CHATBOT } from 'src/app/chatbot-design-studio/utils-actions';
 })
 
 
-export class CdsWidgetLogsComponent implements OnInit {
+export class CdsWidgetLogsComponent implements OnInit, OnDestroy {
   private subscriptionWidgetLoadedNewMessage: Subscription;
   private subscriptionLoadedWidget: Subscription;
   @Input() 
   set IS_OPEN_PANEL_WIDGET(value: boolean) {
     this.isOpenPanelWidget = value;
-    if (!value) {
-      this.closeLog();
-    }
   }
   @Input() request_id: string;
   @Output() closePanelLog = new EventEmitter();
@@ -223,6 +220,7 @@ export class CdsWidgetLogsComponent implements OnInit {
     if(this.subscriptionLoadedWidget) {
       this.subscriptionLoadedWidget.unsubscribe();
     }
+    this.closeLog();
   }
 
 

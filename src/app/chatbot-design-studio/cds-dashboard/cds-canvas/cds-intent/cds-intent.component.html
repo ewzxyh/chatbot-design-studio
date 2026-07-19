@@ -12,6 +12,7 @@
 -->
 <div #resizeElement class="panel-intent-content tds_draggable"
     [class.isStart]="isStart" 
+    [class.live-active-intent-pulse]="isLiveActive"
     [id]="'intent-content-'+ intent?.intent_id"
     [ngStyle]="getIntentStyles()"
     (click)="$event.stopPropagation();onWebhookPanelOpen(intent)"

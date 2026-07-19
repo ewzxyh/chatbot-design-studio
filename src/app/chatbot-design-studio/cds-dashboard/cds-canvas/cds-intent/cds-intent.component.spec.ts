@@ -1,22 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CdsIntentComponent } from './cds-intent.component';
+import { isLiveIntent } from './cds-intent.component';
 
-describe('CdsDrawerOfIntentsComponent', () => {
-  let component: CdsIntentComponent;
-  let fixture: ComponentFixture<CdsIntentComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CdsIntentComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(CdsIntentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+describe('isLiveIntent', () => {
+  it('activates only the block reported by the flow log', () => {
+    expect(isLiveIntent({ intent: { intent_id: 'cc-menu' } as any }, 'cc-menu')).toBeTrue();
+    expect(isLiveIntent({ intent: { intent_id: 'cc-plans' } as any }, 'cc-menu')).toBeFalse();
+    expect(isLiveIntent(null, 'cc-menu')).toBeFalse();
   });
 });

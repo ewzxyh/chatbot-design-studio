@@ -40,6 +40,23 @@ export enum HAS_SELECTED_TYPE {
   INTENT = "HAS_SELECTED_INTENT",
 }
 
+export function normalizeStartAction(actions: any[]): ActionIntentConnected {
+  const current = actions.find(action => action?._tdActionType === TYPE_ACTION.INTENT);
+  if (current) return current;
+
+  const legacyIndex = actions.findIndex(action => action?.intentName);
+  const normalized = new ActionIntentConnected();
+  if (legacyIndex >= 0) {
+    normalized.intentName = actions[legacyIndex].intentName;
+    if (!actions[legacyIndex]._tdActionType) actions.splice(legacyIndex, 1, normalized);
+    else {
+      delete actions[legacyIndex].intentName;
+      actions.push(normalized);
+    }
+  } else actions.push(normalized);
+  return normalized;
+}
+
 // =============================
 // COMPONENT DECORATOR
 // =============================
@@ -396,13 +413,7 @@ export class CdsIntentComponent implements OnInit, OnDestroy, OnChanges {
         this.isStart = true;
       this.showIntentOptions = false;
       
-      // Assicura che ci sia almeno un'azione per intent di start
-      if (this.intent.actions.length === 0) {
-        const action = new Action();
-        action._tdActionType = "intent";
-          this.intent.actions.push(action);
-        }
-        this.startAction = this.intent.actions[0];
+      this.startAction = normalizeStartAction(this.intent.actions);
     } else {
       // Per intent normali, imposta lo stato selezionato
         this.setIntentSelected();

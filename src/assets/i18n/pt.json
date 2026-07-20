@@ -3494,7 +3494,7 @@
       "DataTable": {
         "TITLE": "Tabela de dados",
         "DESCRIPTION": "Leia ou altere linhas de uma tabela do projeto selecionando a tabela, a operacao, os filtros e os dados.",
-        "IMAGE": "",
+        "IMAGE": "assets/images/doc/DATA_TABLE.png",
         "VIDEO_URL": "",
         "DOC_URL": ""
       },

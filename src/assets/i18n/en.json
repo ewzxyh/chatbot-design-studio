@@ -1049,7 +1049,7 @@
       "DataTable": {
         "TITLE": "Data Table",
         "DESCRIPTION": "Read or modify the rows of a project data table: select the table, the operation, set filters and data.",
-        "IMAGE": "",
+        "IMAGE": "assets/images/doc/DATA_TABLE.png",
         "VIDEO_URL": "",
         "DOC_URL": ""
       },

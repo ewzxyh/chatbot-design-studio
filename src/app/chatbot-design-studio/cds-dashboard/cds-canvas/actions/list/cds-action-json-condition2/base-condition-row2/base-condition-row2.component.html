@@ -45,6 +45,7 @@
             <div>{{'CDSCanvas.Condition' | translate }}</div>
             <div class="operators-list">
                 <cds-select
+                    [appendTo]="'.cdk-overlay-container'"
                     [items]="operatorsList"
                     [bindLabelSelect]="'name'"
                     [bindValueSelect]="'type'"

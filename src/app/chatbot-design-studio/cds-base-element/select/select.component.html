@@ -2,7 +2,7 @@
     <ng-select 
         #ngSelect
         class = "form-control-select" 
-        appendTo="body"
+        [appendTo]="appendTo"
         [searchable] = "searchable"
         [editableSearchTerm]= false
         [clearable]="clearable" 

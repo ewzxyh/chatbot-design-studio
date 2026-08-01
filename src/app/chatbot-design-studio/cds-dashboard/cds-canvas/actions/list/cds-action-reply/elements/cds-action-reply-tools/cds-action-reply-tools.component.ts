@@ -33,11 +33,12 @@ export class CdsActionReplyToolsComponent implements OnInit {
         } 
         break;
       case TYPE_MESSAGE.IMAGE:
+      case TYPE_MESSAGE.STICKER:
         newElement = {
           type: TYPE_COMMAND.MESSAGE,
           message: {
             text: '',
-            type: TYPE_MESSAGE.IMAGE,
+            type,
             metadata: {
               src: '',
               downloadURL: ''

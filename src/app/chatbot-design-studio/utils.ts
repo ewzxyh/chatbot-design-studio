@@ -178,6 +178,7 @@ export enum TYPE_COMMAND {
 export enum TYPE_MESSAGE {
     TEXT        = 'text',
     IMAGE       = 'image',
+    STICKER     = 'sticker',
     FRAME       = 'frame',
     GALLERY     = 'gallery',
     REDIRECT    = 'redirect',

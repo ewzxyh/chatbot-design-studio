@@ -10,6 +10,10 @@
         <img class="active-icon" src="assets/images/action-reply-types/image.svg"/>
         <!-- <span>{{'Image' | translate}}</span> -->
     </div>
+    <div class="add-response" (click)="addElement(TypeMessage.STICKER)"
+        matTooltipClass="custom-mat-tooltip" matTooltip="Sticker" #tooltip="matTooltip" matTooltipPosition='below' matTooltipHideDelay="100">
+        <img class="active-icon" src="assets/images/action-reply-types/image.svg"/>
+    </div>
     <div class="add-response" (click)="addElement(TypeMessage.FRAME)"
         matTooltipClass="custom-mat-tooltip" matTooltip="{{'Frame' | translate}}" #tooltip="matTooltip" matTooltipPosition='below' matTooltipHideDelay="100">
         <!-- <i class="material-icons">play_circle</i> -->

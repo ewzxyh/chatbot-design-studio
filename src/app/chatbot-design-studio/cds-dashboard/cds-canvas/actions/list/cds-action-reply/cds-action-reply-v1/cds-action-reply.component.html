@@ -71,7 +71,7 @@
                     </div>
 
                     <!-- IMAGE RESPONSE -->
-                    <div *ngIf="command.message?.type === typeMessage.IMAGE">
+                    <div *ngIf="command.message?.type === typeMessage.IMAGE || command.message?.type === typeMessage.STICKER">
                         <!-- <div class="custom-placeholder" *cdkDragPlaceholder>
                             <cds-action-reply-image
                                 [index] = i
